@@ -2,7 +2,7 @@
 
 ## Descripción
 
-☁️ AWS Desktop Studio v0.1.0 · App Windows local-first para explorar 16 servicios AWS con CLI/SSO, modo lectura por defecto, tutoriales y controles explícitos para EC2.
+☁️ AWS Desktop Studio v0.1.1 · App Windows local-first para explorar 16 servicios AWS con CLI/SSO, modo lectura por defecto, tutoriales y controles explícitos para EC2.
 
 ## Sitio
 

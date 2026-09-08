@@ -16,7 +16,7 @@
 
 ---
 
-> **Estado verificable — v0.1.0 OPERATIVO.** El explorador consulta recursos reales con AWS CLI v2. Las únicas mutaciones implementadas son iniciar, detener y reiniciar instancias EC2 existentes; requieren activar manualmente el modo operativo y confirmar cada acción. El proyecto no crea infraestructura.
+> **Estado verificable — v0.1.1 OPERATIVO.** El explorador consulta recursos reales con AWS CLI v2. Las únicas mutaciones implementadas son iniciar, detener y reiniciar instancias EC2 existentes; requieren activar manualmente el modo operativo y confirmar cada acción. El proyecto no crea infraestructura.
 
 ## Qué demuestra
 
@@ -137,7 +137,7 @@ Consulta [CONTRIBUTING.md](CONTRIBUTING.md) antes de abrir un cambio. Las operac
 
 ## Alcance honesto
 
-Este repositorio sí contiene una aplicación ejecutable y consultas AWS reales. No contiene un SDK propio, no reemplaza la consola de AWS, no administra credenciales, no aprovisiona infraestructura y no promete cobertura total del catálogo AWS. Las firmas comerciales y distribución en Microsoft Store están fuera del alcance de v0.1.0.
+Este repositorio sí contiene una aplicación ejecutable y consultas AWS reales. No contiene un SDK propio, no reemplaza la consola de AWS, no administra credenciales, no aprovisiona infraestructura y no promete cobertura total del catálogo AWS. Las firmas comerciales y distribución en Microsoft Store están fuera del alcance de v0.1.1.
 
 ## Licencia y marcas
 

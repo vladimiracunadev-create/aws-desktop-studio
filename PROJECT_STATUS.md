@@ -1,4 +1,4 @@
-# Estado verificable — v0.1.0
+# Estado verificable — v0.1.1
 
 Última verificación local: 2026-09-07.
 
@@ -17,6 +17,6 @@
 ## Límites declarados
 
 - No crea, elimina ni modifica infraestructura salvo el estado de EC2 existente.
-- Los 12 módulos educativos no realizan consultas reales en v0.1.0.
+- Los 12 módulos educativos no realizan consultas reales en v0.1.1.
 - La prueba end-to-end contra AWS requiere una cuenta/perfil aportado por quien ejecuta la app y no corre en CI.
-- Los ejecutables comunitarios no tienen firma comercial en v0.1.0.
+- Los ejecutables comunitarios no tienen firma comercial en v0.1.1.

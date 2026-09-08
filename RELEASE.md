@@ -14,7 +14,7 @@ Los releases se construyen exclusivamente desde un tag `v*` mediante `.github/wo
 ## Integridad
 
 ```powershell
-Get-FileHash .\AWS-Desktop-Studio-Portable-0.1.0-x64.exe -Algorithm SHA256
+Get-FileHash .\AWS-Desktop-Studio-Portable-0.1.1-x64.exe -Algorithm SHA256
 ```
 
-El hash debe coincidir con `SHA256SUMS.txt`. Los binarios de v0.1.0 no incluyen firma comercial; esta limitación debe mantenerse visible en el release.
+El hash debe coincidir con `SHA256SUMS.txt`. Los binarios de v0.1.1 no incluyen firma comercial; esta limitación debe mantenerse visible en el release.

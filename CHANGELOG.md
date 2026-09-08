@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1 - 2026-09-07
+
+- Desactiva la publicación implícita de electron-builder; el workflow dedicado publica los artefactos de forma explícita.
+
 ## 0.1.0 - 2026-09-07
 
 - Aplicación Electron para Windows.

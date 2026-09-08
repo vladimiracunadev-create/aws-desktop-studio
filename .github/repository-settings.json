@@ -1,5 +1,5 @@
 {
-  "description": "☁️ AWS Desktop Studio v0.1.0 · App Windows local-first para explorar 16 servicios AWS con CLI/SSO, lectura por defecto y controles explícitos para EC2.",
+  "description": "☁️ AWS Desktop Studio v0.1.1 · App Windows local-first para explorar 16 servicios AWS con CLI/SSO, lectura por defecto y controles explícitos para EC2.",
   "homepage": "https://vladimiracunadev-create.github.io/aws-desktop-studio/",
   "topics": [
     "aws",
