@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; connect-src 'none'; font-src 'self'; object-src 'none'; base-uri 'none'; frame-src 'none';" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AWS Desktop Studio</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <div>
+      <h1>AWS Desktop Studio</h1>
+      <p>Explora tu cuenta AWS desde Windows usando tu sesión local AWS CLI / IAM Identity Center.</p>
+    </div>
+    <div class="status-row">
+      <span id="cliBadge" class="badge">AWS CLI…</span>
+      <span id="identityBadge" class="badge">Sin validar</span>
+    </div>
+  </header>
+
+  <section class="connection card">
+    <div class="field"><label>Perfil</label><select id="profile"></select></div>
+    <div class="field"><label>Región</label><select id="region"></select></div>
+    <button id="refreshProfiles">Actualizar perfiles</button>
+    <button id="validateIdentity" class="primary">Validar sesión</button>
+    <button id="ssoLogin">SSO Login</button>
+    <button id="terminal">Abrir PowerShell AWS</button>
+    <label class="mode"><input id="operationalMode" type="checkbox" /> Modo operativo</label>
+  </section>
+
+  <main>
+    <aside class="card">
+      <input id="search" placeholder="Buscar servicio…" />
+      <div id="services"></div>
+    </aside>
+
+    <section class="workspace">
+      <div class="card hero">
+        <div>
+          <span id="category" class="eyebrow">Inicio</span>
+          <h2 id="serviceName">Panel de AWS</h2>
+          <p id="serviceSummary">Selecciona un servicio para revisar recursos reales y abrir su tutorial.</p>
+        </div>
+        <div class="actions">
+          <button id="loadResources" class="primary" disabled>Consultar recursos</button>
+          <button id="loadTutorial" disabled>Ver tutorial</button>
+        </div>
+      </div>
+
+      <div id="notice" class="notice">La aplicación nunca muestra ni almacena tu Secret Access Key. Reutiliza las credenciales resueltas por AWS CLI.</div>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="resources">Recursos</button>
+        <button class="tab" data-tab="tutorial">Tutorial</button>
+        <button class="tab" data-tab="raw">JSON</button>
+      </div>
+
+      <section id="resourcesPanel" class="card panel"></section>
+      <section id="tutorialPanel" class="card panel hidden"><pre id="tutorialText"></pre></section>
+      <section id="rawPanel" class="card panel hidden"><pre id="rawText">{}</pre></section>
+    </section>
+  </main>
+
+  <footer>AWS Desktop Studio · modo lectura por defecto · acciones mutables controladas.</footer>
+  <script src="app.js"></script>
+</body>
+</html>

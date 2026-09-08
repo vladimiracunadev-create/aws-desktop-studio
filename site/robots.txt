@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vladimiracunadev-create.github.io/aws-desktop-studio/sitemap.xml

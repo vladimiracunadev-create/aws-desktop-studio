@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#08121f" />
+  <meta name="description" content="AWS Desktop Studio: aplicación Windows local-first para explorar AWS con CLI/SSO, lectura por defecto y tutoriales integrados." />
+  <meta property="og:title" content="AWS Desktop Studio" />
+  <meta property="og:description" content="Tu sesión local. Tus permisos. Control explícito." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://vladimiracunadev-create.github.io/aws-desktop-studio/" />
+  <meta property="og:image" content="https://vladimiracunadev-create.github.io/aws-desktop-studio/social-card.png" />
+  <title>AWS Desktop Studio — AWS local-first para Windows</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"AWS Desktop Studio","applicationCategory":"DeveloperApplication","operatingSystem":"Windows 10, Windows 11","softwareVersion":"0.1.0","license":"https://opensource.org/license/mit","codeRepository":"https://github.com/vladimiracunadev-create/aws-desktop-studio","author":{"@type":"Person","name":"Vladimir Acuña"}}</script>
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+  <header class="nav shell">
+    <a class="brand" href="#top" aria-label="AWS Desktop Studio, inicio"><img src="favicon.svg" alt="" /> <span>AWS Desktop Studio</span></a>
+    <nav aria-label="Principal"><a href="#capacidades">Capacidades</a><a href="#seguridad">Seguridad</a><a href="#inicio">Inicio rápido</a><a class="nav-cta" href="https://github.com/vladimiracunadev-create/aws-desktop-studio">GitHub</a></nav>
+  </header>
+  <main id="contenido">
+    <section class="hero shell" id="top">
+      <div class="hero-copy">
+        <div class="kicker"><span></span> v0.1.0 · Windows · Open source</div>
+        <h1>AWS, sin perder de vista <em>qué cuenta estás tocando.</em></h1>
+        <p class="lead">Una aplicación local-first para explorar AWS con tus perfiles CLI/SSO, entender cada servicio y mantener las operaciones mutables bajo control explícito.</p>
+        <div class="buttons"><a class="button primary" href="https://github.com/vladimiracunadev-create/aws-desktop-studio/releases">Ver releases</a><a class="button secondary" href="https://github.com/vladimiracunadev-create/aws-desktop-studio#inicio-rápido">Ejecutar desde código</a></div>
+        <ul class="proof" aria-label="Resumen verificable"><li><strong>16</strong><span>consultas reales</span></li><li><strong>20</strong><span>tutoriales</span></li><li><strong>0</strong><span>secretos almacenados</span></li></ul>
+      </div>
+      <div class="app-frame" aria-label="Vista conceptual de la aplicación">
+        <div class="titlebar"><i></i><i></i><i></i><span>AWS Desktop Studio</span></div>
+        <div class="app-body">
+          <aside><div class="mini-logo">☁</div><b>Servicios</b><span class="active">◈ EC2</span><span>◇ S3</span><span>◇ Lambda</span><span>◇ RDS</span><span>◇ IAM</span><span>◇ CloudWatch</span></aside>
+          <div class="workspace"><div class="context"><span>Perfil <b>lab-sso</b></span><span>Región <b>sa-east-1</b></span><mark>Lectura</mark></div><div class="identity"><small>IDENTIDAD VALIDADA</small><strong>Cuenta sandbox</strong><span>arn:aws:sts::••••:assumed-role/lab</span></div><div class="metric-row"><div><small>Running</small><b>3</b></div><div><small>Stopped</small><b>2</b></div><div><small>Región</small><b>GRU</b></div></div><div class="instances"><span><i class="ok"></i> i-0a7… web-lab <b>running</b></span><span><i></i> i-0c2… worker <b>stopped</b></span><span><i class="ok"></i> i-0f9… api-lab <b>running</b></span></div></div>
+        </div>
+      </div>
+    </section>
+    <section class="strip" aria-label="Tecnologías"><div class="shell"><span>AWS CLI v2</span><span>IAM Identity Center</span><span>Electron</span><span>Node.js 22</span><span>CodeQL</span><span>SBOM CycloneDX</span></div></section>
+    <section class="section shell" id="capacidades">
+      <div class="section-head"><div><span class="eyebrow">CAPACIDADES</span><h2>Una cabina de trabajo, no otra consola infinita.</h2></div><p>Diseñada para confirmar contexto, consultar primero y operar solo cuando la intención es inequívoca.</p></div>
+      <div class="cards"><article><span class="icon amber">01</span><h3>Conexión local</h3><p>Detecta perfiles existentes, inicia SSO y valida la identidad efectiva con STS. Las credenciales siguen bajo AWS CLI.</p></article><article><span class="icon blue">02</span><h3>Exploración legible</h3><p>EC2, S3, Lambda, RDS, DynamoDB, VPC, IAM, observabilidad, contenedores, integración y costos en una vista coherente.</p></article><article><span class="icon green">03</span><h3>Aprendizaje en contexto</h3><p>Veinte tutoriales conectan cada pantalla con arquitectura, permisos, costos y prácticas de laboratorio.</p></article></div>
+    </section>
+    <section class="section security" id="seguridad"><div class="shell security-grid"><div><span class="eyebrow">SEGURIDAD POR DISEÑO</span><h2>La fricción correcta, en el momento correcto.</h2><p>El renderer está aislado, el shell permanece fuera del flujo y cada cambio real necesita dos decisiones humanas visibles.</p></div><ol><li><b>01</b><div><strong>Lectura por defecto</strong><span>La aplicación inicia sin capacidad mutable habilitada.</span></div></li><li><b>02</b><div><strong>Allowlist cerrada</strong><span>Comandos, acciones, protocolos e identificadores se validan.</span></div></li><li><b>03</b><div><strong>Confirmación nativa</strong><span>EC2 start/stop/reboot exige modo operativo y diálogo final.</span></div></li><li><b>04</b><div><strong>Cadena verificable</strong><span>CI, auditoría npm, CodeQL, SBOM y checksums por release.</span></div></li></ol></div></section>
+    <section class="section shell quick" id="inicio"><div><span class="eyebrow">INICIO RÁPIDO</span><h2>De cero a la aplicación validada.</h2><p>Necesitas Windows, Node.js 22, AWS CLI v2 y un perfil configurado.</p></div><pre><code><span>git clone</span> https://github.com/vladimiracunadev-create/aws-desktop-studio.git
+<span>cd</span> aws-desktop-studio
+<span>npm ci</span>
+<span>npm run verify</span>
+<span>npm start</span></code></pre></section>
+    <section class="section honesty shell"><div class="honesty-card"><span class="eyebrow">ALCANCE HONESTO</span><h2>Operativo donde lo afirma. Documentado donde todavía no.</h2><p>La aplicación consulta 16 servicios reales. Otros 12 módulos son educativos. No crea infraestructura, no reemplaza IAM y sus binarios comunitarios aún no tienen firma comercial.</p><a href="https://github.com/vladimiracunadev-create/aws-desktop-studio/blob/main/PROJECT_STATUS.md">Revisar evidencia y límites →</a></div></section>
+  </main>
+  <footer><div class="shell"><div><strong>AWS Desktop Studio</strong><span>Hecho en Chile por Vladimir Acuña.</span></div><div><a href="https://github.com/vladimiracunadev-create/aws-desktop-studio">Código</a><a href="https://github.com/vladimiracunadev-create/aws-desktop-studio/blob/main/SECURITY.md">Seguridad</a><a href="https://github.com/vladimiracunadev-create/aws-desktop-studio/blob/main/LICENSE">MIT</a></div></div></footer>
+</body>
+</html>

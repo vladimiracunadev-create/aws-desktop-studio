@@ -1,0 +1,57 @@
+{
+  "name": "aws-desktop-studio",
+  "version": "0.1.0",
+  "description": "Aplicación Windows para explorar y operar AWS reutilizando perfiles y sesiones locales de AWS CLI/SSO.",
+  "main": "src/main.js",
+  "author": "Vladimir Acuña",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "node": ">=22 <25"
+  },
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test test/*.test.js",
+    "test:coverage": "node --test --experimental-test-coverage test/*.test.js",
+    "assets:generate": "node scripts/generate-icon.mjs",
+    "check": "node scripts/check.mjs",
+    "verify": "npm run check && npm test",
+    "dist:win": "electron-builder --win nsis portable",
+    "pack:win": "electron-builder --win --dir"
+  },
+  "devDependencies": {
+    "electron": "44.2.0",
+    "electron-builder": "26.15.3"
+  },
+  "build": {
+    "appId": "cl.vladimiracuna.awsdesktopstudio",
+    "productName": "AWS Desktop Studio",
+    "asar": true,
+    "files": [
+      "src/**/*",
+      "docs/**/*",
+      "package.json",
+      "LICENSE"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "nsis": {
+      "artifactName": "AWS-Desktop-Studio-Setup-${version}-${arch}.${ext}",
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "portable": {
+      "artifactName": "AWS-Desktop-Studio-Portable-${version}-${arch}.${ext}"
+    }
+  }
+}

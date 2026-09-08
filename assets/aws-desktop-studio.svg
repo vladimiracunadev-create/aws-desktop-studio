@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" role="img" aria-labelledby="title desc">
+  <title id="title">AWS Desktop Studio</title>
+  <desc id="desc">Banner oscuro con una nube, nodos conectados y el nombre AWS Desktop Studio.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07111f"/><stop offset=".55" stop-color="#10243b"/><stop offset="1" stop-color="#1a2d43"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffb21a"/><stop offset="1" stop-color="#ff7a18"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="22"/></filter>
+  </defs>
+  <rect width="1200" height="360" rx="28" fill="url(#bg)"/>
+  <circle cx="1030" cy="45" r="155" fill="#1e87f0" opacity=".13" filter="url(#glow)"/>
+  <circle cx="110" cy="335" r="145" fill="#ff9900" opacity=".09" filter="url(#glow)"/>
+  <g transform="translate(82 82)">
+    <rect width="196" height="196" rx="44" fill="#0c1b2c" stroke="#35516d" stroke-width="2"/>
+    <path d="M57 120c-20 0-35-14-35-33 0-17 13-31 31-33 8-25 29-41 55-41 30 0 54 21 59 49 17 4 29 18 29 35 0 20-16 36-38 36H58" fill="none" stroke="url(#accent)" stroke-width="10" stroke-linecap="round"/>
+    <path d="M57 155h101" stroke="#68b5ff" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="70" cy="155" r="10" fill="#ff9900"/><circle cx="108" cy="155" r="10" fill="#68b5ff"/><circle cx="146" cy="155" r="10" fill="#22c55e"/>
+  </g>
+  <g font-family="Segoe UI, Arial, sans-serif">
+    <text x="320" y="145" fill="#f8fafc" font-size="58" font-weight="750" letter-spacing="-1.5">AWS Desktop Studio</text>
+    <text x="323" y="196" fill="#9fb4c8" font-size="24">Tu sesión local. Tus permisos. Control explícito.</text>
+    <g transform="translate(323 234)" font-size="17" font-weight="650">
+      <rect width="136" height="39" rx="19.5" fill="#ff9900"/><text x="68" y="26" text-anchor="middle" fill="#111827">WINDOWS</text>
+      <rect x="148" width="166" height="39" rx="19.5" fill="#112c46" stroke="#2c577b"/><text x="231" y="26" text-anchor="middle" fill="#b9ddff">LOCAL-FIRST</text>
+      <rect x="326" width="154" height="39" rx="19.5" fill="#123424" stroke="#276944"/><text x="403" y="26" text-anchor="middle" fill="#a7f3c1">READ-ONLY</text>
+    </g>
+  </g>
+</svg>
