@@ -1,0 +1,23 @@
+{
+  "description": "☁️ AWS Desktop Studio v0.1.0 · App Windows local-first para explorar 16 servicios AWS con CLI/SSO, lectura por defecto y controles explícitos para EC2.",
+  "homepage": "https://vladimiracunadev-create.github.io/aws-desktop-studio/",
+  "topics": [
+    "aws",
+    "electron",
+    "windows",
+    "aws-cli",
+    "aws-sso",
+    "cloud",
+    "finops",
+    "devsecops",
+    "desktop-app",
+    "learning"
+  ],
+  "has_issues": true,
+  "has_projects": false,
+  "has_wiki": false,
+  "allow_squash_merge": true,
+  "allow_merge_commit": false,
+  "allow_rebase_merge": true,
+  "delete_branch_on_merge": true
+}
