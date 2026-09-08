@@ -1,5 +1,6 @@
 version: 2
 updates:
+  # Identificador oficial de GitHub para el ecosistema JavaScript; pnpm sigue siendo el gestor.
   - package-ecosystem: npm
     directory: /
     schedule:

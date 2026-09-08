@@ -25,7 +25,7 @@
 3. Privilegios excesivos: usar roles de mínimo privilegio y perfiles separados.
 4. Cambios accidentales: lectura por defecto y confirmación del usuario.
 5. Costos inesperados: revisar Cost Explorer y presupuestos antes de iniciar recursos existentes.
-6. Cadena de suministro: lockfile, auditoría npm, Dependency Review, CodeQL, SBOM y hashes por release.
+6. Cadena de suministro: lockfile, auditoría pnpm, Dependency Review, CodeQL, SBOM y hashes por release.
 
 ## Reportar una vulnerabilidad
 

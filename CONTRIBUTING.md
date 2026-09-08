@@ -5,9 +5,9 @@ Gracias por mejorar AWS Desktop Studio. Busca primero un issue existente y mant�
 ## Entorno
 
 ```powershell
-npm ci
-npm run verify
-npm audit --audit-level=high
+pnpm install --frozen-lockfile
+pnpm run verify
+pnpm audit --audit-level=high
 ```
 
 Node.js 22 LTS es la referencia de desarrollo y CI. La aplicación se distribuye para Windows, aunque las pruebas puras también corren en Ubuntu.
@@ -26,7 +26,7 @@ Toda mutación nueva, además, necesita allowlist cerrada, modo operativo, confi
 
 ## Pull request
 
-- Ejecuta `npm run verify` y la auditoría de dependencias.
+- Ejecuta `pnpm run verify` y la auditoría de dependencias.
 - Actualiza documentación y capturas si cambia comportamiento visible.
 - No incluyas credenciales, IDs de cuenta, ARN reales ni respuestas AWS personales.
 - Usa Conventional Commits (`feat:`, `fix:`, `docs:`, `ci:`, `test:`).

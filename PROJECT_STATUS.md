@@ -4,14 +4,14 @@
 
 | Superficie | Estado | Evidencia |
 |---|---|---|
-| Aplicación Electron | Operativa | `npm start`; procesos main/preload/renderer implementados |
+| Aplicación Electron | Operativa | `pnpm start`; procesos main/preload/renderer implementados |
 | Consultas AWS | 16 integraciones | allowlist en `src/aws-command-builder.js` + Cost Explorer |
 | Mutaciones | 3 acciones EC2 | start/stop/reboot; modo opt-in + diálogo nativo |
 | Catálogo educativo | 28 entradas | `src/catalog.js` |
-| Tutoriales | 20 archivos | `docs/tutorials/*.md`; verificado por `npm run check` |
+| Tutoriales | 20 archivos | `docs/tutorials/*.md`; verificado por `pnpm run check` |
 | Pruebas | 8 casos | `node --test test/*.test.js` |
 | Automatización | 4 workflows | CI, CodeQL, Pages y build/release Windows |
-| Dependencias | Reproducibles | `package-lock.json` + `npm ci` |
+| Dependencias | Reproducibles | `pnpm-lock.yaml` + `pnpm install --frozen-lockfile` |
 | Publicación | Preparada | landing, About, SBOM, checksums y assets de release |
 
 ## Límites declarados

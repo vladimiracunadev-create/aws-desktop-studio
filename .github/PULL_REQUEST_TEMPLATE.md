@@ -4,8 +4,8 @@ Describe el problema y la solución.
 
 ## Evidencia
 
-- [ ] `npm run verify`
-- [ ] `npm audit --audit-level=high`
+- [ ] `pnpm run verify`
+- [ ] `pnpm audit --audit-level=high`
 - [ ] Capturas adjuntas si cambia la interfaz
 - [ ] Documentación actualizada si cambia el comportamiento
 

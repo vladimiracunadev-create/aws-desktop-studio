@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Migra instalación, scripts, CI, documentación y lockfile a pnpm 11.19.0.
+
 ## 0.1.1 - 2026-09-07
 
 - Desactiva la publicación implícita de electron-builder; el workflow dedicado publica los artefactos de forma explícita.
@@ -15,7 +19,7 @@
 - Modo lectura por defecto.
 - Tutoriales integrados y mapa de modalidades AWS.
 - Ocho pruebas deterministas y 100 % de cobertura del constructor de comandos.
-- Electron 44.2.0 y auditoría npm sin vulnerabilidades conocidas al publicar.
+- Electron 44.2.0 y auditoría de dependencias sin vulnerabilidades conocidas al publicar.
 - GitHub Actions con pins SHA para CI multi-OS, CodeQL, build/release Windows y Pages.
 - Instalador y portable diferenciados, SBOM CycloneDX y checksums SHA-256.
 - Landing responsive, identidad visual, About y documentación de evidencia.

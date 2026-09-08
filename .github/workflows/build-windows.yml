@@ -19,18 +19,28 @@ jobs:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           fetch-depth: 0
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+        with:
+          version: 11.19.0
+          run_install: false
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 22
-          cache: npm
-      - run: npm ci
-      - run: npm run verify
-      - run: npm audit --audit-level=high
-      - run: npm run dist:win
-      - name: Generate SBOM and SHA-256 checksums
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run verify
+      - run: pnpm audit --audit-level=high
+      - run: pnpm run dist:win
+      - name: Generate CycloneDX SBOM
+        uses: anchore/sbom-action@3ad7283483fc7af8ff2b4ea19663c2d5ca935e26 # v0.24.2
+        with:
+          path: .
+          format: cyclonedx-json
+          output-file: dist/aws-desktop-studio-sbom.cdx.json
+          upload-artifact: false
+      - name: Generate SHA-256 checksums
         shell: pwsh
         run: |
-          npm sbom --sbom-format cyclonedx | Out-File -Encoding utf8 dist/aws-desktop-studio-sbom.cdx.json
           Get-ChildItem dist -File | Where-Object {
             $_.Name -match '^AWS-Desktop-Studio-.*\.exe(\.blockmap)?$' -or
             $_.Name -eq 'latest.yml' -or

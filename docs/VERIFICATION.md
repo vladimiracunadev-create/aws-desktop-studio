@@ -6,10 +6,10 @@ Este documento separa lo automatizado de lo que requiere un entorno AWS real.
 
 | Gate | Comando / workflow | Qué prueba |
 |---|---|---|
-| Estructura | `npm run check` | archivos esenciales y 20 tutoriales presentes |
-| Unidad | `npm test` | construcción segura de argumentos, allowlists y fechas UTC |
-| Cobertura | `npm run test:coverage` | cobertura nativa de Node sin servicio externo |
-| Dependencias | `npm audit --audit-level=high` | vulnerabilidades conocidas del lockfile |
+| Estructura | `pnpm run check` | archivos esenciales y 20 tutoriales presentes |
+| Unidad | `pnpm test` | construcción segura de argumentos, allowlists y fechas UTC |
+| Cobertura | `pnpm run test:coverage` | cobertura nativa de Node sin servicio externo |
+| Dependencias | `pnpm audit --audit-level=high` | vulnerabilidades conocidas del lockfile |
 | Plataformas | `ci.yml` | validación en Windows y Ubuntu con Node 22 |
 | SAST | `codeql.yml` | análisis JavaScript/TypeScript semanal y por cambios |
 | Release | `build-windows.yml` | empaquetado, SBOM, SHA-256 y publicación por tag |

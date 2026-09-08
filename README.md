@@ -50,9 +50,9 @@ aws sts get-caller-identity --profile mi-perfil
 ```powershell
 git clone https://github.com/vladimiracunadev-create/aws-desktop-studio.git
 cd aws-desktop-studio
-npm ci
-npm run verify
-npm start
+pnpm install --frozen-lockfile
+pnpm run verify
+pnpm start
 ```
 
 La aplicación selecciona `sa-east-1` inicialmente, intenta adoptar la región del perfil elegido y nunca almacena Access Keys ni tokens.
@@ -60,7 +60,7 @@ La aplicación selecciona `sa-east-1` inicialmente, intenta adoptar la región d
 ### Construir Windows
 
 ```powershell
-npm run dist:win
+pnpm run dist:win
 ```
 
 El pipeline de release genera dos ejecutables diferenciados —Setup y Portable—, un SBOM CycloneDX y `SHA256SUMS.txt`. Los binarios comunitarios no están firmados con un certificado comercial; Windows puede mostrar una advertencia SmartScreen.
@@ -105,7 +105,7 @@ Controles principales:
 - validación estricta de perfil, región e Instance ID;
 - `AWS_PAGER` desactivado, timeout por operación y sin shell intermedio;
 - CSP restrictiva, permisos web denegados y bloqueo de navegación emergente;
-- CI multi-OS, auditoría npm, Dependency Review, CodeQL y Dependabot.
+- CI multi-OS, auditoría pnpm, Dependency Review, CodeQL y Dependabot.
 
 AWS IAM continúa siendo la autoridad final. La aplicación no amplía los permisos del perfil elegido.
 
@@ -126,11 +126,11 @@ AWS IAM continúa siendo la autoridad final. La aplicación no amplía los permi
 ## Desarrollo y contribución
 
 ```powershell
-npm ci
-npm run check
-npm test
-npm run test:coverage
-npm audit --audit-level=high
+pnpm install --frozen-lockfile
+pnpm run check
+pnpm test
+pnpm run test:coverage
+pnpm audit --audit-level=high
 ```
 
 Consulta [CONTRIBUTING.md](CONTRIBUTING.md) antes de abrir un cambio. Las operaciones mutables nuevas deben incorporar allowlist, validación, confirmación, pruebas y documentación del impacto/costo.
