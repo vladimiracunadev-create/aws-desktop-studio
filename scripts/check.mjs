@@ -16,6 +16,8 @@ const required = [
   'docs/tutorials/ec2.md',
   'docs/08-referencias-y-plan-de-madurez.md',
   'docs/09-investigacion-implementacion-aws.md',
+  'docs/STYLE_GUIDE.md',
+  'scripts/check-docs.mjs',
   'skills/cloud-implementation-research-audit/SKILL.md',
   'site/index.html',
   'README.md',

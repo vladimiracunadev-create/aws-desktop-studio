@@ -1,4 +1,25 @@
-# Laboratorios sugeridos
+# 🧪 Laboratorios sugeridos
+
+[**← README**](../README.md) · [**🗺️ Mapa de servicios**](aws-service-map.md) · [**📚 Tutoriales**](../README.md#-documentación)
+
+> [!IMPORTANT]
+> Ejecuta los laboratorios en una cuenta sandbox, con presupuesto y teardown. No uses root salvo una tarea que AWS reserve expresamente a esa identidad.
+
+```mermaid
+flowchart LR
+    L0["0 · 🪪 Identidad"] --> L1["1–2 · 🪣 S3 + EC2"]
+    L1 --> L2["3–4 · ⚡ Eventos"]
+    L2 --> L3["5–6 · 🏗️ IaC + contenedores"]
+    L3 --> L4["7–8 · 📊 Observabilidad + seguridad"]
+    L4 --> L5["9 · 💰 FinOps + teardown"]
+
+    style L0 fill:#8957e5,color:#fff
+    style L1 fill:#1f6feb,color:#fff
+    style L2 fill:#ff9900,color:#111
+    style L3 fill:#21262d,color:#fff
+    style L4 fill:#cf222e,color:#fff
+    style L5 fill:#2da44e,color:#fff
+```
 
 ## Lab 0 — Identidad
 Objetivo: configurar SSO, validar STS, distinguir cuenta/rol/región.

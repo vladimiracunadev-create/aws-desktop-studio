@@ -1,8 +1,10 @@
-# Estado verificable de la implementación — v0.1.1
+# 📊 Estado verificable de la implementación — v0.1.1
+
+[**← README**](README.md) · [**✅ Evidencia**](docs/VERIFICATION.md) · [**🗺️ Roadmap**](ROADMAP.md) · [**🔬 Investigación**](docs/09-investigacion-implementacion-aws.md)
 
 Última verificación local: 2026-09-10.
 
-## Clasificación de madurez
+## 🧪 Clasificación de madurez
 
 **Estado global: implementación en desarrollo.** No es un producto terminado ni una solución universal de acceso AWS. La existencia de localhost, Setup, Portable y releases demuestra que el proyecto se ejecuta y se empaqueta; no demuestra que todos los proveedores, cuentas, regiones y ciclos de sesión estén resueltos.
 
@@ -19,7 +21,21 @@
 | Automatización | 4 workflows: CI, CodeQL, Pages y build/release Windows | Verifica código y empaquetado, no acceso real a cuentas AWS |
 | Release Windows | Setup, Portable, SBOM y SHA-256 por tag | Despliegue inicial; sin firma comercial ni garantía de producción |
 
-## Qué no debe inferirse de v0.1.1
+```mermaid
+flowchart LR
+    A["🧪 Prototipo actual"] --> B["🔑 Acceso E2E"]
+    B --> C["🌍 Multi-cuenta y región"]
+    C --> D["🛡️ Operación endurecida"]
+    D --> E["✅ Candidata v1.0"]
+
+    style A fill:#f59e0b,color:#111
+    style B fill:#8957e5,color:#fff
+    style C fill:#1f6feb,color:#fff
+    style D fill:#21262d,color:#fff
+    style E fill:#2da44e,color:#fff
+```
+
+## 🚫 Qué no debe inferirse de v0.1.1
 
 - No significa que el acceso mediante una consola ya abierta se transfiera a localhost.
 - No certifica compatibilidad completa con root, IAM, federación, SSO, roles y workloads.

@@ -1,4 +1,28 @@
-# Mapa de servicios y modalidades AWS
+# 🗺️ Mapa de servicios y modalidades AWS
+
+[**← README**](../README.md) · [**🧠 Modelo mental**](02-modelo-mental-aws.md) · [**🧪 Laboratorios**](05-laboratorios.md)
+
+```mermaid
+flowchart TB
+    ID["🪪 Identidad"] --> GOV["🏛️ Gobierno"]
+    ID --> NET["🌐 Red y edge"]
+    NET --> RUN["⚙️ EC2 · Serverless · Contenedores"]
+    RUN --> DATA["🗄️ Storage · SQL · NoSQL · Analítica"]
+    RUN --> EVT["🔌 APIs · Colas · Eventos"]
+    DATA --> OBS["📊 Observabilidad · Auditoría"]
+    EVT --> OBS
+    SEC["🔒 Seguridad"] -. transversal .-> ID
+    SEC -. transversal .-> RUN
+    SEC -. transversal .-> DATA
+    COST["💰 FinOps"] -. mide .-> RUN
+    COST -. mide .-> DATA
+
+    style ID fill:#8957e5,color:#fff
+    style RUN fill:#ff9900,color:#111
+    style DATA fill:#1f6feb,color:#fff
+    style SEC fill:#cf222e,color:#fff
+    style COST fill:#2da44e,color:#fff
+```
 
 Este mapa no pretende listar literalmente cada SKU de AWS; organiza los servicios más relevantes por responsabilidad arquitectónica.
 

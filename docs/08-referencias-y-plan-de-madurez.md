@@ -1,12 +1,14 @@
-# Referencias open source y plan de madurez
+# 🔬 Referencias open source y plan de madurez
+
+[**← README**](../README.md) · [**📊 Estado**](../PROJECT_STATUS.md) · [**📖 Investigación completa**](09-investigacion-implementacion-aws.md) · [**🗺️ Roadmap**](../ROADMAP.md)
 
 Fecha de revisión: 2026-09-10.
 
-## Propósito
+## 🎯 Propósito
 
 AWS Desktop Studio es una implementación en desarrollo. Los proyectos siguientes se estudian como referencias de arquitectura y experiencia de usuario; no se presenta compatibilidad total con ellos ni se copia su código. Cada proyecto conserva su propia licencia.
 
-## Qué hacen realmente los productos similares
+## 🧭 Qué hacen realmente los productos similares
 
 | Referencia | Patrón de acceso real | Aprendizaje aplicable |
 |---|---|---|
@@ -16,13 +18,13 @@ AWS Desktop Studio es una implementación en desarrollo. Los proyectos siguiente
 | [Steampipe AWS](https://github.com/turbot/steampipe-plugin-aws) | Consulta recursos mediante perfiles, SSO, roles, regiones y agregadores multi-cuenta. | El inventario debe ser paginado, multi-región, multi-cuenta y transparente frente a errores IAM parciales. |
 | [LocalStack Desktop](https://github.com/localstack/localstack-desktop) | Explora servicios AWS simulados en un entorno local. | Mantener LocalStack como modalidad separada: no confundir simulación local con una cuenta AWS real. |
 
-## Conclusión técnica
+## 🧠 Conclusión técnica
 
 Ninguna referencia obtiene permisos AWS leyendo arbitrariamente las cookies de una pestaña abierta. Los patrones válidos son proveedores de credenciales, OAuth/OIDC administrado por AWS, IAM Identity Center, perfiles compartidos, `credential_process`, AssumeRole y roles de workload. La consola web puede participar en el inicio de sesión, pero la aplicación necesita credenciales programáticas temporales y debe confirmar la identidad con STS.
 
 Por ello, este repositorio usa AWS CLI como backend inicial. Es una decisión de prototipo que permite comprobar identidad y consultas reales sin implementar almacenamiento de secretos. No significa que el ciclo completo de acceso para todos los usuarios esté resuelto.
 
-## Estado frente a las referencias
+## 📊 Estado frente a las referencias
 
 | Capacidad | Estado actual | Brecha |
 |---|---|---|
@@ -35,7 +37,7 @@ Por ello, este repositorio usa AWS CLI como backend inicial. Es una decisión de
 | Aplicación Windows | Electron, Setup y Portable | Firma de código, actualizaciones, accesibilidad y pruebas visuales instaladas. |
 | Localhost | API loopback con controles básicos | Mejorar ciclo de vida, mensajes, recuperación y pruebas end-to-end. |
 
-## Prioridades de mejora
+## 🗺️ Prioridades de mejora
 
 ### P0 — acceso comprensible y verificable
 
@@ -64,6 +66,6 @@ Por ello, este repositorio usa AWS CLI como backend inicial. Es una decisión de
 - Accesibilidad, internacionalización y pruebas de interfaz automatizadas.
 - Auditoría local de operaciones sin secretos.
 
-## Criterio para considerar resuelto el acceso AWS
+## ✅ Criterio para considerar resuelto el acceso AWS
 
 Una versión futura podrá declarar acceso resuelto únicamente cuando cada modalidad soportada tenga prueba end-to-end reproducible, renovación y expiración documentadas, identidad STS visible, manejo de cancelación, pruebas negativas y una matriz pública de compatibilidad por sistema operativo. Tener localhost, un ejecutable Windows o un tag publicado no satisface por sí solo este criterio.

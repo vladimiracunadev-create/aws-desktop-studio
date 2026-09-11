@@ -1,4 +1,15 @@
-# Costos y FinOps
+# 💰 Costos y FinOps
+
+[**← Documentación**](../../README.md#-documentación) · [**🗺️ Servicios**](../aws-service-map.md) · [**🔒 Seguridad**](../../SECURITY.md)
+
+> [!IMPORTANT]
+> **Módulo educativo.** Cost Explorer puede mostrar costo; no sustituye budgets, alertas ni una revisión financiera autorizada.
+
+| Ficha | Alcance |
+|---|---|
+| Herramientas | Cost Explorer · Budgets · CUR · tags |
+| Decisión central | visibilidad, asignación y optimización |
+| Control clave | alertas, ownership y teardown |
 
 ## Herramientas
 Cost Explorer, AWS Budgets, Cost and Usage Report, tagging y herramientas de rightsizing/optimización.

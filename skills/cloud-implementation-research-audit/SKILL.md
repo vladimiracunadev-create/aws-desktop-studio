@@ -7,6 +7,9 @@ description: Investigate and audit whether a cloud-integrated repository's claim
 
 Produce an evidence-first assessment that distinguishes a working implementation from a prototype, deployment artifact, simulated environment, or documented intention. Keep the method provider-neutral and specialize only after identifying the cloud and runtime in scope.
 
+> [!IMPORTANT]
+> Evidence, security boundaries, and reproducible tests take precedence over product wording or visual polish.
+
 ## Operating principles
 
 - Treat repository code, tests, workflows, release artifacts, and remote metadata as separate sources of truth.

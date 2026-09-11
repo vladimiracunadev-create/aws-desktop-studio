@@ -1,4 +1,15 @@
-# Amazon CloudWatch
+# 📊 Amazon CloudWatch
+
+[**← Documentación**](../../README.md#-documentación) · [**🗺️ Servicios**](../aws-service-map.md) · [**🔒 Seguridad**](../../SECURITY.md)
+
+> [!NOTE]
+> **Módulo educativo.** La aplicación consulta grupos de logs de forma acotada; no sustituye una estrategia de observabilidad.
+
+| Ficha | Alcance |
+|---|---|
+| Servicio | Amazon CloudWatch |
+| Decisión central | métricas, logs, alarmas y dashboards |
+| Control clave | retención, cardinalidad, permisos y costo |
 
 Observabilidad: métricas, logs, dashboards, alarmas y eventos asociados.
 

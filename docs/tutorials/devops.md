@@ -1,4 +1,15 @@
-# DevOps y entrega
+# ♾️ DevOps y entrega
+
+[**← Documentación**](../../README.md#-documentación) · [**🗺️ Servicios**](../aws-service-map.md) · [**🔒 Seguridad**](../../SECURITY.md)
+
+> [!NOTE]
+> **Módulo educativo.** AWS Desktop Studio no reemplaza un pipeline de entrega ni despliega a producción.
+
+| Ficha | Alcance |
+|---|---|
+| Servicios | CodeBuild · CodePipeline · CodeArtifact y herramientas externas |
+| Decisión central | entrega repetible con gates y rollback |
+| Control clave | provenance, secretos, permisos y separación de ambientes |
 
 AWS ofrece CodeBuild, CodePipeline, CodeArtifact y otros servicios de developer tooling, pero también puedes usar GitHub Actions/GitLab CI/Jenkins.
 

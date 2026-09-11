@@ -1,31 +1,41 @@
-# Modalidades de trabajo con AWS
+# ☁️ Modalidades de trabajo con AWS
 
-## Consola web
+[**← README**](../README.md) · [**🧠 Modelo mental**](02-modelo-mental-aws.md) · [**🔒 Seguridad y costos**](04-seguridad-y-costos.md)
+
+| Modalidad | Mejor para | Riesgo principal |
+|---|---|---|
+| Consola | descubrimiento y tareas puntuales | cambios manuales no reproducibles |
+| CLI / SDK | automatización y aplicaciones | credenciales, errores y paginación |
+| IaC | infraestructura repetible | cambios amplios sin plan previo |
+| Serverless / contenedores / VM | ejecutar cargas | costo, operación y superficie de ataque |
+| Híbrido / multi-account | escala organizacional | gobierno e identidad complejos |
+
+## 🌐 Consola web
 Buena para descubrimiento y tareas puntuales. Riesgo: cambios manuales difíciles de reproducir.
 
-## AWS CLI
+## ⌨️ AWS CLI
 Automatizable y auditable. AWS Desktop Studio usa CLI como backend inicial para aprovechar tu sesión local y cubrir muchos servicios sin almacenar secretos.
 
-## SDK
+## 🧩 SDK
 Ideal cuando una aplicación necesita llamar AWS programáticamente. El roadmap considera migrar determinadas operaciones críticas a SDK nativo.
 
-## Infrastructure as Code
+## 🏗️ Infrastructure as Code
 CloudFormation/CDK/Terraform permiten describir infraestructura repetible. Recomendado para producción.
 
-## Serverless
+## ⚡ Serverless
 Lambda, API Gateway, EventBridge, SQS/SNS, DynamoDB. Reduce administración de servidores, pero exige entender límites, observabilidad y costos por uso.
 
-## Contenedores
+## 📦 Contenedores
 ECS/Fargate simplifica AWS-native; EKS entrega Kubernetes con mayor complejidad y portabilidad.
 
-## Máquinas virtuales
+## 🖥️ Máquinas virtuales
 EC2 entrega máximo control del sistema operativo. Implica parches, hardening, capacidad, backup y monitoreo.
 
-## Híbrido
+## 🔄 Híbrido
 VPN, Direct Connect, Storage Gateway, Outposts y servicios de migración conectan on-premise con AWS.
 
-## Multi-account
+## 🏢 Multi-account
 Organizations/Control Tower ayudan a separar producción, desarrollo, seguridad y facturación.
 
-## IA/ML
+## 🤖 IA/ML
 Bedrock apunta a IA generativa administrada y SageMaker a workflows completos de ML.

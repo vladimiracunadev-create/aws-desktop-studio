@@ -1,4 +1,15 @@
-# AWS Lambda
+# ⚡ AWS Lambda
+
+[**← Documentación**](../../README.md#-documentación) · [**🗺️ Servicios**](../aws-service-map.md) · [**🔒 Seguridad**](../../SECURITY.md)
+
+> [!NOTE]
+> **Módulo educativo.** La aplicación lista funciones; no invoca ni despliega código Lambda.
+
+| Ficha | Alcance |
+|---|---|
+| Servicio | AWS Lambda |
+| Decisión central | ejecución por eventos sin servidor persistente |
+| Control clave | timeout, concurrencia, reintentos e IAM |
 
 Cómputo serverless basado en funciones. AWS administra servidores y escala invocaciones.
 

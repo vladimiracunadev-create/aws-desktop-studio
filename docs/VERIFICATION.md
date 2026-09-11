@@ -1,10 +1,28 @@
-# Evidencia verificable
+# ✅ Evidencia verificable
+
+[**← README**](../README.md) · [**📊 Estado**](../PROJECT_STATUS.md) · [**📦 Release**](../RELEASE.md)
 
 Este documento separa lo automatizado de lo que requiere un entorno AWS real.
 
 Pasar estos gates demuestra integridad del código, pruebas unitarias y capacidad de empaquetado. No demuestra que el producto esté terminado ni que todas las modalidades de acceso AWS funcionen. Los workflows públicos no reciben credenciales de cuentas reales y, por diseño, no prueban root, IAM, federación, SSO, AssumeRole o workloads de extremo a extremo.
 
-## Gates locales y CI
+## 🚦 Gates locales y CI
+
+```mermaid
+flowchart LR
+    S["📝 Código + docs"] --> C["🔎 Check estructural"]
+    C --> T["✅ 15 pruebas"]
+    T --> A["🛡️ Audit + CodeQL"]
+    A --> W["🪟 Package Windows"]
+    W --> R["📦 Release por tag"]
+    R -. no demuestra .-> E["☁️ AWS E2E"]
+
+    style C fill:#1f6feb,color:#fff
+    style T fill:#2da44e,color:#fff
+    style A fill:#8957e5,color:#fff
+    style W fill:#21262d,color:#fff
+    style E fill:#f59e0b,color:#111
+```
 
 | Gate | Comando / workflow | Qué prueba |
 |---|---|---|
@@ -19,7 +37,7 @@ Pasar estos gates demuestra integridad del código, pruebas unitarias y capacida
 
 Un workflow verde de release significa que Setup, Portable, SBOM y hashes pudieron generarse. No es una certificación de autenticación AWS ni de preparación para producción.
 
-## Prueba manual con AWS
+## ☁️ Prueba manual con AWS
 
 Usa una cuenta sandbox y un rol de mínimo privilegio.
 

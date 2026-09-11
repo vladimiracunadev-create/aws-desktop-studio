@@ -1,4 +1,15 @@
-# DynamoDB
+# ⚡ DynamoDB
+
+[**← Documentación**](../../README.md#-documentación) · [**🗺️ Servicios**](../aws-service-map.md) · [**🔒 Seguridad**](../../SECURITY.md)
+
+> [!NOTE]
+> **Módulo educativo.** La aplicación lista tablas; no inspecciona ni modifica sus datos.
+
+| Ficha | Alcance |
+|---|---|
+| Servicio | Amazon DynamoDB |
+| Decisión central | modelar por patrones de acceso |
+| Control clave | claves, índices, capacidad y hot partitions |
 
 Base NoSQL key-value/document administrada, orientada a latencia baja y escalado horizontal.
 

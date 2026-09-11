@@ -1,6 +1,25 @@
-# Instalación y conexión
+# 🚀 Instalación y conexión
 
-## 1. Instala AWS CLI v2
+[**← README**](../README.md) · [**🪪 Modelo de identidad**](02-modelo-mental-aws.md) · [**🧰 Troubleshooting**](06-troubleshooting.md) · [**🔒 Seguridad**](../SECURITY.md)
+
+> [!IMPORTANT]
+> El correo, contraseña, MFA y factores alternativos se introducen exclusivamente en páginas oficiales de AWS. AWS Desktop Studio sólo recibe el resultado programático administrado por AWS CLI.
+
+```mermaid
+flowchart LR
+    C["1 · ✅ AWS CLI"] --> P["2 · 🪪 Proveedor"]
+    P --> L["3 · 🔐 Login oficial"]
+    L --> S["4 · ✅ Validación STS"]
+    S --> W["5 · 🖥️ Workspace"]
+
+    style C fill:#1f6feb,color:#fff
+    style P fill:#8957e5,color:#fff
+    style L fill:#ff9900,color:#111
+    style S fill:#2da44e,color:#fff
+    style W fill:#21262d,color:#fff
+```
+
+## 1. ⚙️ Instala AWS CLI v2
 
 Verifica:
 
@@ -8,7 +27,7 @@ Verifica:
 aws --version
 ```
 
-## 2. Elige un modelo de identidad
+## 2. 🪪 Elige un modelo de identidad
 
 ### A. AWS Login (root, usuario IAM o identidad federada)
 
@@ -46,7 +65,7 @@ Evita access keys de larga duración cuando puedas usar SSO/roles.
 
 La pantalla puede crear un perfil AssumeRole indicando perfil de origen, ARN del rol y región. La opción **Cadena automática AWS** omite `--profile`, lo que permite a AWS CLI resolver variables de entorno, `credential_process` y roles de carga EC2/ECS/EKS.
 
-## 3. Ejecuta AWS Desktop Studio
+## 3. 🖥️ Ejecuta AWS Desktop Studio
 
 Aplicación Electron:
 
@@ -80,11 +99,11 @@ Si el MFA habitual no está disponible, AWS puede mostrar **Trouble signing in?*
 
 El modo localhost permite consultas de identidad y recursos. Las acciones mutables sobre EC2 se mantienen deshabilitadas allí; utiliza Electron para disponer de confirmación nativa antes de cada cambio.
 
-## 4. Centro de tareas
+## 4. ✅ Centro de tareas
 
 Después de validar la cuenta, abre **Mis tareas** para registrar pendientes locales, asociarlos a un servicio, asignar prioridad y fecha, y moverlos entre pendiente, en curso y completado. La lista se guarda solamente en el equipo y no se sincroniza con servicios AWS.
 
-## 5. Si expira SSO
+## 5. 🔄 Si expira SSO
 
 Pulsa **SSO Login** o ejecuta:
 
@@ -92,7 +111,7 @@ Pulsa **SSO Login** o ejecuta:
 aws sso login --profile mi-sso
 ```
 
-## Errores comunes
+## 🧰 Errores comunes
 
 - `Unable to locate credentials`: perfil no autenticado/configurado.
 - `ExpiredToken`: renueva SSO o credenciales temporales.

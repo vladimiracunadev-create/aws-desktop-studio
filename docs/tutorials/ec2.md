@@ -1,4 +1,15 @@
-# EC2 — Elastic Compute Cloud
+# 🖥️ EC2 — Elastic Compute Cloud
+
+[**← Documentación**](../../README.md#-documentación) · [**🗺️ Servicios**](../aws-service-map.md) · [**🔒 Seguridad**](../../SECURITY.md)
+
+> [!WARNING]
+> **Integración experimental.** La lectura está disponible; start/stop/reboot requiere modo operativo, confirmación y una cuenta sandbox.
+
+| Ficha | Alcance |
+|---|---|
+| Servicio | Amazon EC2 |
+| Decisión central | control del sistema operativo frente a carga operativa |
+| Control clave | IAM, red, parches, backups y costo encendido |
 
 ## Qué es
 Máquinas virtuales en AWS. Tú eliges AMI, tipo de instancia, red, disco y modelo de acceso.

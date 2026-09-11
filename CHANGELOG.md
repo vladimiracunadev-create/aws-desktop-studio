@@ -1,7 +1,13 @@
-# Changelog
+# 🕒 Changelog
 
-## Unreleased
+[**← README**](README.md) · [**📊 Estado actual**](PROJECT_STATUS.md) · [**📦 Publicación**](RELEASE.md)
 
+> [!IMPORTANT]
+> Este archivo conserva historia. Las cifras y afirmaciones bajo versiones publicadas no se reescriben para representar el estado actual.
+
+## 🚧 Unreleased
+
+- Renueva los 44 documentos Markdown con un sistema visual coherente: navegación, iconos semánticos, tablas, callouts, fichas educativas y diagramas Mermaid verificables.
 - Reclasifica públicamente el repositorio como implementación en desarrollo y aclara que los releases 0.x representan despliegues iniciales, no una solución terminada de acceso AWS.
 - Añade un análisis de AWS Toolkit, Leapp, Granted, Steampipe y LocalStack como referencias, con brechas, prioridades y criterios de madurez.
 - Incorpora una investigación extensa y citada sobre proveedores AWS, seguridad, inventario, evolución del repositorio y criterios de aceptación end-to-end.
@@ -19,11 +25,11 @@
 - Ordena las modalidades de acceso con credenciales de consola como prioridad, detecta el tipo de proveedor y muestra el progreso navegador → credencial temporal → STS.
 - Conserva la identidad validada al cambiar de región y aclara que AWS Login abre una ventana oficial separada mientras localhost continúa esperando.
 
-## 0.1.1 - 2026-09-07
+## 📦 0.1.1 — 2026-09-07
 
 - Desactiva la publicación implícita de electron-builder; el workflow dedicado publica los artefactos de forma explícita.
 
-## 0.1.0 - 2026-09-07
+## 📦 0.1.0 — 2026-09-07
 
 - Aplicación Electron para Windows.
 - Detección de perfiles AWS CLI.

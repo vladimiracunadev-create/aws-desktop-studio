@@ -1,4 +1,15 @@
-# Híbrido y migración
+# 🔄 Híbrido y migración
+
+[**← Documentación**](../../README.md#-documentación) · [**🗺️ Servicios**](../aws-service-map.md) · [**🔒 Seguridad**](../../SECURITY.md)
+
+> [!NOTE]
+> **Módulo educativo.** No configura conectividad, replicación ni migraciones reales.
+
+| Ficha | Alcance |
+|---|---|
+| Servicios | VPN · Direct Connect · DMS · DataSync · Migration Hub |
+| Decisión central | conectar, replicar, migrar o modernizar |
+| Control clave | dependencia, ventana de corte, cifrado y rollback |
 
 ## Conectividad
 Site-to-Site VPN y Direct Connect conectan redes; Transit Gateway ayuda a topologías complejas.

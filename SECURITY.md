@@ -1,13 +1,35 @@
-# Seguridad
+# 🔒 Seguridad
 
-## Versiones con soporte
+[**← README**](README.md) · [**🏗️ Arquitectura**](docs/07-arquitectura-interna.md) · [**✅ Evidencia**](docs/VERIFICATION.md) · [**🛟 Soporte**](SUPPORT.md)
+
+> [!IMPORTANT]
+> AWS CLI administra las credenciales. La aplicación trabaja con identidad y metadatos redactados; nunca debe recibir contraseñas, MFA, Access Keys ni tokens.
+
+## 📦 Versiones con soporte
 
 | Versión | Soporte |
 |---|---|
 | 0.1.x | Sí |
 | < 0.1 | No |
 
-## Principios
+## 🛡️ Defensa por capas
+
+```mermaid
+flowchart LR
+    U["👤 Usuario"] --> R["🖥️ Renderer aislado"]
+    R --> V["✅ Validación + allowlist"]
+    V --> C["☁️ AWS CLI sin shell"]
+    C --> I["🪪 IAM / STS"]
+    I --> A["📜 CloudTrail"]
+
+    style R fill:#1f6feb,color:#fff
+    style V fill:#8957e5,color:#fff
+    style C fill:#ff9900,color:#111
+    style I fill:#21262d,color:#fff
+    style A fill:#2da44e,color:#fff
+```
+
+## 📌 Principios
 
 - No guardar `aws_access_key_id`, `aws_secret_access_key` ni tokens SSO en el repositorio.
 - Preferir AWS Login, IAM Identity Center (SSO), roles temporales y MFA; evitar operar diariamente como root.
@@ -18,7 +40,7 @@
 - Secrets Manager muestra metadatos, no `GetSecretValue`.
 - Nunca subir `~/.aws/credentials`, `~/.aws/config` con datos privados ni `.env` con secretos.
 
-## Modelo de amenaza resumido
+## ⚠️ Modelo de amenaza resumido
 
 1. Inyección de comandos: mitigada evitando shell y validando tokens.
 2. Exposición de credenciales: la aplicación delega resolución a AWS CLI.
@@ -30,7 +52,7 @@
 8. Frontera de autenticación: AWS Login y SSO delegan contraseña, desafíos y MFA a páginas oficiales. AWS CLI administra sus cachés temporales; la app solo solicita nombres de perfiles y configuración no secreta.
 9. Escritura de configuración: crear perfiles SSO o AssumeRole modifica `~/.aws/config` únicamente después de una confirmación explícita; ningún endpoint acepta Access Keys.
 
-## Reportar una vulnerabilidad
+## 🚨 Reportar una vulnerabilidad
 
 Usa **Security → Report a vulnerability** en GitHub cuando esté disponible. Si necesitas contactar al mantenedor por otro canal, utiliza la información privada de su perfil y evita adjuntar secretos.
 

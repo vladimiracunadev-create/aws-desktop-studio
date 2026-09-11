@@ -1,16 +1,35 @@
-# Investigación de implementación efectiva de acceso e inventario AWS
+# 🔬 Investigación de implementación efectiva de acceso e inventario AWS
 
-## Conclusión ejecutiva
+[**← README**](../README.md) · [**📊 Estado**](../PROJECT_STATUS.md) · [**🧭 Referencias**](08-referencias-y-plan-de-madurez.md) · [**🗺️ Roadmap**](../ROADMAP.md)
+
+## 🎯 Conclusión ejecutiva
 
 AWS Desktop Studio es una implementación en desarrollo que ya contiene componentes reales —Electron, localhost loopback, llamadas a AWS CLI, validación STS, consultas de lectura, tareas locales y empaquetado Windows—, pero todavía no constituye una solución completa de acceso o administración AWS.
 
 El muro técnico observado no es accidental: una sesión abierta en AWS Management Console y una sesión programática son contextos de seguridad distintos. Una aplicación localhost no debe extraer cookies, contraseñas ni MFA del navegador. Necesita un proveedor oficial que produzca credenciales programáticas temporales, como AWS Login, IAM Identity Center, AssumeRole, web identity, `credential_process`, credenciales de contenedor o el perfil de instancia EC2.[^1]
 
+```mermaid
+flowchart LR
+    U["👤 Persona o workload"] --> P{"🪪 Proveedor oficial"}
+    P -->|Login / SSO| B["🌐 Navegador AWS"]
+    P -->|Rol / OIDC / runtime| C["🔑 Credencial temporal"]
+    B --> C
+    C --> S["✅ STS valida identidad"]
+    S --> I["📦 Inventario acotado"]
+    I --> E["📋 Evidencia sin secretos"]
+
+    style U fill:#1f6feb,color:#fff
+    style P fill:#8957e5,color:#fff
+    style B fill:#ff9900,color:#111
+    style S fill:#2da44e,color:#fff
+    style E fill:#21262d,color:#fff
+```
+
 AWS CLI 2.32.0 introdujo `aws login` para seleccionar una sesión de consola activa o completar una autenticación web y generar credenciales temporales. Es el mecanismo más cercano a vincular una experiencia de consola con herramientas locales, pero sigue siendo un flujo OAuth controlado por AWS: puede abrir otra ventana, requiere administrar expiración y no convierte las cookies del navegador en una API pública para localhost.[^2]
 
 Los binarios y releases de este repositorio deben interpretarse únicamente como entregas de despliegue de una serie 0.x. Un workflow verde prueba construcción, tests unitarios, análisis estático o empaquetado según el workflow; no prueba autenticación real para todas las modalidades, renovación de sesiones, inventario completo ni preparación para producción.
 
-## Alcance y método
+## 🧭 Alcance y método
 
 La investigación contrasta tres fuentes:
 
@@ -20,7 +39,7 @@ La investigación contrasta tres fuentes:
 
 Las afirmaciones sobre AWS se apoyan prioritariamente en documentación oficial. Las comparaciones open source describen patrones observables y no implican equivalencia funcional, aval ni reutilización de código.
 
-## 1. Consola web y acceso programático
+## 1. 🌐 Consola web y acceso programático
 
 AWS Management Console autentica una experiencia web. AWS CLI, SDKs y aplicaciones necesitan credenciales capaces de firmar solicitudes AWS Signature Version 4. La existencia de una pestaña autenticada no concede a otra origin —como `http://127.0.0.1:4173`— acceso a sus cookies ni a material de sesión.
 
@@ -38,7 +57,7 @@ El puente válido es un proveedor oficial. AWS documenta que `aws login` usa cre
 
 El botón de AWS Login puede iniciar el proceso y esperar su resultado, pero no puede garantizar que el navegador abierto comparta cookies con la pestaña integrada. Debe mostrar claramente cuatro estados: esperando navegador, autenticación completada, credencial temporal disponible e identidad STS validada. Cancelar, cerrar la ventana o agotar el tiempo deben devolver la UI a un estado recuperable.
 
-## 2. Matriz de modalidades de acceso
+## 2. 🪪 Matriz de modalidades de acceso
 
 AWS mantiene una cadena de proveedores. Cada SDK o herramienta puede variar en orden y cobertura; cuando encuentra credenciales válidas, deja de buscar. Los proveedores estandarizados intentan renovar credenciales temporales automáticamente cuando lo soportan.[^1]
 
@@ -87,7 +106,7 @@ El proveedor de procesos ejecuta el comando definido en `credential_process`. AW
 
 Para ECS/EKS, AWS recomienda task roles y EKS Pod Identity por aislamiento, mínimo privilegio y auditabilidad.[^9] En EC2, IMDSv2 es el comportamiento seguro esperado y puede deshabilitarse la consulta de metadata en redes no confiables.[^10]
 
-## 3. Seguridad
+## 3. 🔒 Seguridad
 
 ### 3.1 Principios obligatorios
 
@@ -121,7 +140,7 @@ La verificación por correo y teléfono que aparece bajo Trouble signing in es r
 | Dependencia comprometida | lockfile, CodeQL, Dependency Review, SBOM | Firma de artefactos, provenance/attestation y política de actualizaciones |
 | Ejecutable Windows no confiable | Hash SHA-256 | Authenticode y canal de actualización verificado |
 
-## 4. Inventario y descubrimiento de recursos
+## 4. 📦 Inventario y descubrimiento de recursos
 
 Consultar una lista fija de APIs no equivale a inventariar una cuenta. Cada servicio tiene paginación, regiones, recursos globales, permisos y modelos distintos. Un resultado vacío puede significar realmente vacío, página incompleta, región incorrecta, servicio deshabilitado o AccessDenied.
 
@@ -138,7 +157,7 @@ La arquitectura futura debe combinar fuentes:
 
 El inventario debe producir un registro por cuenta, región, servicio, estado, fuente, timestamp y token de paginación. Nunca debe sumar silenciosamente respuestas parciales como si fueran totales.
 
-## 5. Referencias open source
+## 5. 🧩 Referencias open source
 
 ### AWS Toolkit for VS Code
 
@@ -172,7 +191,7 @@ LocalStack Desktop explora servicios simulados localmente.[^20] Debe aparecer co
 
 Una implementación similar no autoriza copiar su código, marca o interfaz. Antes de reutilizar cualquier fragmento se debe verificar la licencia del commit y del componente exactos.
 
-## 6. Evolución verificada del repositorio
+## 6. 🕒 Evolución verificada del repositorio
 
 ### Historial publicado
 
@@ -202,7 +221,7 @@ Los tags existentes son `v0.1.0` y `v0.1.1`; GitHub muestra un release publicado
 
 Estos cambios no deben publicarse como una nueva solución de acceso hasta que exista una decisión de versión y se cumplan criterios E2E. El changelog Unreleased es la fuente histórica correspondiente.
 
-## 7. Arquitectura objetivo
+## 7. 🏗️ Arquitectura objetivo
 
 ```text
 Interfaz de conexión
@@ -226,7 +245,7 @@ ResolvedCredentialContext
 
 La interfaz no debería conocer secretos. Un adaptador por proveedor resuelve la sesión y devuelve solamente metadatos seguros. Las consultas deben consumir un contexto inmutable de cuenta/región para evitar que un cambio visual mezcle resultados de dos contextos.
 
-## 8. Plan de implementación y pruebas
+## 8. 🗺️ Plan de implementación y pruebas
 
 ### P0 — identidad y ciclo de sesión
 
@@ -257,7 +276,7 @@ La interfaz no debería conocer secretos. Un adaptador por proveedor resuelve la
 4. Accesibilidad y pruebas visuales.
 5. Políticas de operación y audit trail local sin secretos.
 
-## 9. Criterios de aceptación
+## 9. ✅ Criterios de aceptación
 
 Una modalidad puede marcarse soportada solo si:
 
@@ -271,13 +290,13 @@ Una modalidad puede marcarse soportada solo si:
 
 La evidencia E2E mínima debe registrar, sin secretos: versión de AWS CLI, sistema operativo, proveedor seleccionado, cuenta sandbox anonimizada, región, transición de estados, resultado de STS, operación de lectura paginada, renovación/logout y resultado esperado de los casos negativos.
 
-## 10. Skill de investigación reutilizable
+## 10. 🤖 Skill de investigación reutilizable
 
 El repositorio incluye [`cloud-implementation-research-audit`](../skills/cloud-implementation-research-audit/SKILL.md), una skill general y no acoplada a AWS Desktop Studio. Puede aplicarse a repositorios AWS, Azure, Google Cloud u otros proveedores para contrastar afirmaciones del producto con código, documentación oficial vigente, seguridad, licencias, releases y pruebas E2E. La copia versionada permite auditar su evolución; puede instalarse en el catálogo personal de Codex para reutilizarla desde otros proyectos.
 
 Una release puede marcarse candidata a producción solo si, además, el instalador está firmado, las actualizaciones son verificables, existe rollback, se publican limitaciones y la matriz de acceso soportada está verde en E2E. Hasta entonces, las versiones deben describirse como despliegues de una implementación en desarrollo.
 
-## Fuentes
+## 🔗 Fuentes
 
 [^1]: AWS. [AWS SDKs and Tools standardized credential providers](https://docs.aws.amazon.com/sdkref/latest/guide/standardized-credentials.html).
 [^2]: AWS CLI. [Login for AWS local development using console credentials](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-sign-in.html).

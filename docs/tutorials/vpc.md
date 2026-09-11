@@ -1,4 +1,15 @@
-# Amazon VPC
+# 🕸️ Amazon VPC
+
+[**← Documentación**](../../README.md#-documentación) · [**🗺️ Servicios**](../aws-service-map.md) · [**🔒 Seguridad**](../../SECURITY.md)
+
+> [!NOTE]
+> **Integración de lectura acotada.** La aplicación lista VPC; no crea redes, rutas ni reglas.
+
+| Ficha | Alcance |
+|---|---|
+| Servicio | Amazon VPC |
+| Decisión central | segmentación, enrutamiento y conectividad |
+| Control clave | CIDR, rutas, Security Groups, NACL y endpoints privados |
 
 Red lógica aislada para recursos AWS.
 

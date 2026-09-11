@@ -1,4 +1,15 @@
-# Networking y edge
+# 🌐 Networking y edge
+
+[**← Documentación**](../../README.md#-documentación) · [**🗺️ Servicios**](../aws-service-map.md) · [**🔒 Seguridad**](../../SECURITY.md)
+
+> [!NOTE]
+> **Módulo educativo.** Route 53, CloudFront y Global Accelerator no están integrados operacionalmente.
+
+| Ficha | Alcance |
+|---|---|
+| Servicios | Route 53 · ELB · CloudFront · Global Accelerator |
+| Decisión central | resolución, balanceo, caché o aceleración |
+| Control clave | TLS, origen, health checks y exposición pública |
 
 ## Route 53
 DNS, dominios, routing policies y health checks.

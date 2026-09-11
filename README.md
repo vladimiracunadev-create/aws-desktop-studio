@@ -1,7 +1,7 @@
 <div align="center">
   <img src="assets/aws-desktop-studio.svg" width="900" alt="AWS Desktop Studio — AWS local-first para Windows" />
 
-  # AWS Desktop Studio
+  # ☁️ AWS Desktop Studio
 
   **Implementación experimental para explorar integraciones AWS desde Windows y localhost.**
 
@@ -9,16 +9,25 @@
   [![CodeQL](https://github.com/vladimiracunadev-create/aws-desktop-studio/actions/workflows/codeql.yml/badge.svg)](https://github.com/vladimiracunadev-create/aws-desktop-studio/actions/workflows/codeql.yml)
   [![Pages](https://github.com/vladimiracunadev-create/aws-desktop-studio/actions/workflows/pages.yml/badge.svg)](https://vladimiracunadev-create.github.io/aws-desktop-studio/)
   [![License: MIT](https://img.shields.io/badge/license-MIT-22c55e.svg)](LICENSE)
-  [![Windows](https://img.shields.io/badge/platform-Windows-38bdf8.svg)](#requisitos)
+  [![Windows](https://img.shields.io/badge/platform-Windows-38bdf8.svg)](#-requisitos)
+  [![Version](https://img.shields.io/badge/version-0.1.1-8957e5.svg)](CHANGELOG.md)
+  [![Tests](https://img.shields.io/badge/tests-15%20passing-2da44e.svg)](docs/VERIFICATION.md)
+  [![Maturity](https://img.shields.io/badge/madurez-en%20desarrollo-f59e0b.svg)](PROJECT_STATUS.md)
+  [![Electron](https://img.shields.io/badge/Electron-44.2.0-47848f?logo=electron&logoColor=white)](package.json)
 
-  [Sitio](https://vladimiracunadev-create.github.io/aws-desktop-studio/) · [Inicio rápido](#inicio-rápido) · [Documentación](#documentación) · [Seguridad](SECURITY.md) · [Roadmap](ROADMAP.md)
+  [**🌐 Sitio**](https://vladimiracunadev-create.github.io/aws-desktop-studio/) · [**🚀 Inicio rápido**](#-inicio-rápido) · [**🧭 Arquitectura**](docs/07-arquitectura-interna.md) · [**📚 Documentación**](#-documentación) · [**🔒 Seguridad**](SECURITY.md) · [**🗺️ Roadmap**](ROADMAP.md)
 </div>
 
 ---
 
+> [!WARNING]
 > **IMPLEMENTACIÓN EN DESARROLLO — v0.1.1.** Existe una aplicación ejecutable, localhost y artefactos Windows iniciales, pero el flujo de acceso AWS todavía está en validación y mejora. Esta versión demuestra despliegue y consultas acotadas; no representa un producto terminado ni una solución universal de autenticación AWS.
 
-## Qué es y qué no es
+| Integraciones de inventario | Áreas individuales | Tutoriales | Pruebas unitarias | Workflows |
+|:---:|:---:|:---:|:---:|:---:|
+| **15** | **16** | **20** | **15** | **4** |
+
+## 🎯 Qué es y qué no es
 
 Este repositorio es un prototipo funcional y verificable para aprender, explorar integraciones y madurar una aplicación local de AWS. Algunas consultas llaman cuentas reales mediante AWS CLI y STS, pero su cobertura, experiencia de acceso, renovación de sesiones, paginación y soporte multi-cuenta/multi-región siguen incompletos.
 
@@ -26,7 +35,7 @@ Este repositorio es un prototipo funcional y verificable para aprender, explorar
 - **No es:** una réplica de AWS Console, un gestor de identidad terminado, una garantía de acceso para cualquier modalidad ni una herramienta lista para producción.
 - **Los releases 0.x iniciales:** versionan el empaquetado y despliegue de la implementación. No certifican que el acceso AWS esté resuelto.
 
-## Qué demuestra
+## ✨ Qué demuestra
 
 AWS Desktop Studio reúne administración, laboratorio y tutorial en una aplicación Electron local-first:
 
@@ -45,9 +54,9 @@ AWS Desktop Studio reúne administración, laboratorio y tutorial en una aplicac
 
 Estas capacidades demuestran piezas técnicas existentes, no madurez de producto. Consulta [Estado verificable](PROJECT_STATUS.md), [Roadmap](ROADMAP.md) y [Referencias y plan de madurez](docs/08-referencias-y-plan-de-madurez.md) antes de evaluar el alcance.
 
-## Inicio rápido
+## 🚀 Inicio rápido
 
-### Requisitos
+### 📋 Requisitos
 
 - Windows 10/11 x64.
 - Node.js 22 LTS para desarrollo.
@@ -60,7 +69,7 @@ aws sso login --profile mi-perfil
 aws sts get-caller-identity --profile mi-perfil
 ```
 
-### Ejecutar desde código
+### 💻 Ejecutar desde código
 
 ```powershell
 git clone https://github.com/vladimiracunadev-create/aws-desktop-studio.git
@@ -70,7 +79,7 @@ pnpm run verify
 pnpm start
 ```
 
-### Ejecutar en localhost
+### 🌐 Ejecutar en localhost
 
 ```powershell
 pnpm run start:web
@@ -86,7 +95,7 @@ El asistente visual de IAM Identity Center incluye nombre de sesión, Start/Issu
 
 Las tareas personales se guardan localmente en el almacenamiento de la aplicación. No se sincronizan con AWS y nunca contienen credenciales salvo que el usuario las escriba expresamente, algo que se debe evitar.
 
-### Construir Windows
+### 🪟 Construir Windows
 
 ```powershell
 pnpm run dist:win
@@ -94,9 +103,10 @@ pnpm run dist:win
 
 El pipeline de release genera dos ejecutables diferenciados —Setup y Portable—, un SBOM CycloneDX y `SHA256SUMS.txt`. Los binarios comunitarios no están firmados con un certificado comercial; Windows puede mostrar una advertencia SmartScreen.
 
+> [!IMPORTANT]
 > Un artefacto instalable solo demuestra que el código fue empaquetado. No demuestra que todas las modalidades de acceso AWS funcionen ni que la aplicación esté lista para producción.
 
-## Cobertura funcional
+## 🧩 Cobertura funcional
 
 | Área | Servicios con consulta real | Resultado |
 |---|---|---|
@@ -114,18 +124,24 @@ El pipeline de release genera dos ejecutables diferenciados —Setup y Portable�
 
 Bedrock, SageMaker, Redshift, Glue, Athena, Route 53, CloudFront, WAF, Organizations, Backup, CodePipeline y Migration Hub/DMS están documentados como módulos educativos; no se presentan como integraciones operativas.
 
-## Modelo de seguridad
+## 🔒 Modelo de seguridad
 
-```text
-Renderer aislado
-  contextIsolation: true · nodeIntegration: false · sandbox: true
-        │ API mínima con contextBridge
-        ▼
-Proceso principal Electron
-  navegación/ventanas/permisos bloqueados
-        │ spawn("aws", args, { shell: false })
-        ▼
-AWS CLI v2 ── perfil/SSO local ── IAM y APIs AWS
+```mermaid
+flowchart LR
+    U["👤 Usuario"] --> UI["🖥️ Renderer aislado<br/>Electron o localhost"]
+    UI -->|"API mínima · sin secretos"| B["🛡️ Frontera segura<br/>IPC o loopback"]
+    B --> C["⚙️ Proceso principal<br/>validación + allowlist"]
+    C -->|"spawn sin shell"| CLI["☁️ AWS CLI v2"]
+    CLI --> ID["🔑 Proveedor oficial<br/>Login · SSO · rol · workload"]
+    ID --> STS["✅ STS<br/>cuenta + ARN"]
+    STS --> API["📦 APIs AWS<br/>lectura acotada"]
+
+    style U fill:#1f6feb,color:#fff
+    style B fill:#8957e5,color:#fff
+    style C fill:#21262d,color:#fff
+    style CLI fill:#ff9900,color:#111
+    style STS fill:#2da44e,color:#fff
+    style API fill:#0ea5e9,color:#fff
 ```
 
 Controles principales:
@@ -140,7 +156,7 @@ Controles principales:
 
 AWS IAM continúa siendo la autoridad final. La aplicación no amplía los permisos del perfil elegido.
 
-## Documentación
+## 📚 Documentación
 
 | Ruta | Objetivo |
 |---|---|
@@ -156,8 +172,9 @@ AWS IAM continúa siendo la autoridad final. La aplicación no amplía los permi
 | [Referencias y plan de madurez](docs/08-referencias-y-plan-de-madurez.md) | comparación open source, brechas y prioridades |
 | [Investigación de implementación AWS](docs/09-investigacion-implementacion-aws.md) | proveedores, seguridad, inventario, historial y criterios E2E |
 | [Skill general de auditoría cloud](skills/cloud-implementation-research-audit/SKILL.md) | investigación reutilizable para AWS, Azure, Google Cloud y otros proveedores |
+| [Estándar visual Markdown](docs/STYLE_GUIDE.md) | portada, navegación, iconos, tablas, diagramas y reglas de honestidad visual verificadas en CI |
 
-## Desarrollo y contribución
+## 🛠️ Desarrollo y contribución
 
 ```powershell
 pnpm install --frozen-lockfile
@@ -169,10 +186,10 @@ pnpm audit --audit-level=high
 
 Consulta [CONTRIBUTING.md](CONTRIBUTING.md) antes de abrir un cambio. Las operaciones mutables nuevas deben incorporar allowlist, validación, confirmación, pruebas y documentación del impacto/costo.
 
-## Alcance honesto y estado de madurez
+## 🧪 Alcance honesto y estado de madurez
 
 Este repositorio contiene una aplicación ejecutable, un modo localhost y consultas AWS reales acotadas. Usa credenciales administradas por AWS CLI, pero no solicita secretos ni implementa un proveedor de identidad propio. No reemplaza la consola, no aprovisiona infraestructura, no promete cobertura total del catálogo AWS y permanece en desarrollo activo. Las firmas comerciales, distribución en Microsoft Store y una matriz completa de acceso están fuera del alcance de v0.1.1.
 
-## Licencia y marcas
+## ⚖️ Licencia y marcas
 
 [MIT](LICENSE). AWS, Amazon Web Services y los nombres de sus servicios son marcas de Amazon.com, Inc. o sus afiliadas. Este proyecto es independiente y no es un producto oficial de AWS.

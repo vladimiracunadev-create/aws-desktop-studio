@@ -16,7 +16,7 @@
     "test": "node --test test/*.test.js",
     "test:coverage": "node --test --experimental-test-coverage test/*.test.js",
     "assets:generate": "node scripts/generate-icon.mjs",
-    "check": "node scripts/check.mjs",
+    "check": "node scripts/check.mjs && node scripts/check-docs.mjs",
     "verify": "pnpm run check && pnpm test",
     "dist:win": "electron-builder --win nsis portable --publish never",
     "pack:win": "electron-builder --win --dir"

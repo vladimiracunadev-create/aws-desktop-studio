@@ -1,4 +1,15 @@
-# Resiliencia, backup y DR
+# 🛟 Resiliencia, backup y DR
+
+[**← Documentación**](../../README.md#-documentación) · [**🗺️ Servicios**](../aws-service-map.md) · [**🔒 Seguridad**](../../SECURITY.md)
+
+> [!IMPORTANT]
+> **Módulo educativo.** Un backup sólo es evidencia de recuperación después de una restauración probada.
+
+| Ficha | Alcance |
+|---|---|
+| Servicios | AWS Backup · Elastic Disaster Recovery · capacidades nativas |
+| Decisión central | RTO, RPO y estrategia de recuperación |
+| Control clave | inmutabilidad, aislamiento y pruebas periódicas |
 
 Disponibilidad no es lo mismo que backup; backup no es lo mismo que disaster recovery.
 
