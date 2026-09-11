@@ -2,7 +2,7 @@
 
 ## Descripción
 
-☁️ AWS Desktop Studio v0.1.1 · App Windows local-first para explorar 16 servicios AWS con CLI/SSO, modo lectura por defecto, tutoriales y controles explícitos para EC2.
+🧪 AWS Desktop Studio · Implementación en desarrollo para explorar integraciones AWS desde Electron y localhost · Acceso AWS todavía en validación · Windows
 
 ## Sitio
 
@@ -10,4 +10,4 @@ https://vladimiracunadev-create.github.io/aws-desktop-studio/
 
 ## Topics
 
-`aws` · `electron` · `windows` · `aws-cli` · `aws-sso` · `cloud` · `finops` · `devsecops` · `desktop-app` · `learning`
+`aws` · `electron` · `windows` · `aws-cli` · `aws-sso` · `cloud` · `devsecops` · `desktop-app` · `learning` · `work-in-progress`

@@ -10,7 +10,7 @@
 ## Principios
 
 - No guardar `aws_access_key_id`, `aws_secret_access_key` ni tokens SSO en el repositorio.
-- Preferir IAM Identity Center (SSO), roles temporales y MFA.
+- Preferir AWS Login, IAM Identity Center (SSO), roles temporales y MFA; evitar operar diariamente como root.
 - Modo lectura por defecto.
 - Operaciones mutables con confirmación explícita.
 - Los comandos AWS se ejecutan con `spawn(..., shell:false)` y argumentos validados.
@@ -26,6 +26,9 @@
 4. Cambios accidentales: lectura por defecto y confirmación del usuario.
 5. Costos inesperados: revisar Cost Explorer y presupuestos antes de iniciar recursos existentes.
 6. Cadena de suministro: lockfile, auditoría pnpm, Dependency Review, CodeQL, SBOM y hashes por release.
+7. Modo localhost: escucha exclusiva en `127.0.0.1`, validación de `Host`/`Origin`, token anti-CSRF, cuerpos limitados y mutaciones AWS deshabilitadas.
+8. Frontera de autenticación: AWS Login y SSO delegan contraseña, desafíos y MFA a páginas oficiales. AWS CLI administra sus cachés temporales; la app solo solicita nombres de perfiles y configuración no secreta.
+9. Escritura de configuración: crear perfiles SSO o AssumeRole modifica `~/.aws/config` únicamente después de una confirmación explícita; ningún endpoint acepta Access Keys.
 
 ## Reportar una vulnerabilidad
 

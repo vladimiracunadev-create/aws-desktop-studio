@@ -2,7 +2,22 @@
 
 ## Unreleased
 
+- Reclasifica públicamente el repositorio como implementación en desarrollo y aclara que los releases 0.x representan despliegues iniciales, no una solución terminada de acceso AWS.
+- Añade un análisis de AWS Toolkit, Leapp, Granted, Steampipe y LocalStack como referencias, con brechas, prioridades y criterios de madurez.
+- Incorpora una investigación extensa y citada sobre proveedores AWS, seguridad, inventario, evolución del repositorio y criterios de aceptación end-to-end.
+- Añade la skill general `cloud-implementation-research-audit`, reutilizable en repositorios de distintos proveedores cloud.
+- Añade advertencias equivalentes al README, estado, roadmap, landing, About y futuras notas de release Windows.
 - Migra instalación, scripts, CI, documentación y lockfile a pnpm 11.19.0.
+- Añade una pantalla inicial de conexión que bloquea el explorador hasta validar la identidad con STS.
+- Permite configurar un perfil SSO nuevo y abrir la consola AWS de la región elegida desde la aplicación.
+- Incorpora un centro de tareas local con servicio, prioridad, fecha y estado.
+- Corrige el diagnóstico de plataforma importando el módulo `os` requerido.
+- Añade `pnpm run start:web` para ejecutar la interfaz en `127.0.0.1:4173` y consultar la sesión AWS local mediante una API loopback protegida.
+- Amplía el onboarding con todos los campos no secretos de IAM Identity Center y luego unifica root, IAM y federación en una sola acción AWS Login.
+- Convierte el acceso de consola en una conexión programática real mediante el proveedor oficial `aws login`, seguida de validación STS.
+- Añade perfiles AssumeRole, cadena estándar de credenciales para workloads e inventario agregado con visibilidad de denegaciones IAM.
+- Ordena las modalidades de acceso con credenciales de consola como prioridad, detecta el tipo de proveedor y muestra el progreso navegador → credencial temporal → STS.
+- Conserva la identidad validada al cambiar de región y aclara que AWS Login abre una ventana oficial separada mientras localhost continúa esperando.
 
 ## 0.1.1 - 2026-09-07
 

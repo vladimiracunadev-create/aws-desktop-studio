@@ -10,7 +10,11 @@ aws --version
 
 ## 2. Elige un modelo de identidad
 
-### A. IAM Identity Center (recomendado para personas/organizaciones)
+### A. AWS Login (root, usuario IAM o identidad federada)
+
+Ejecuta `aws login --profile aws-login` o pulsa **Entrar con AWS Login**. AWS CLI abre la autenticación oficial y obtiene credenciales temporales. Cuando termina, la aplicación valida automáticamente Account y ARN mediante STS. La aplicación no lee cookies, contraseñas ni MFA.
+
+### B. IAM Identity Center (recomendado para organizaciones)
 
 ```powershell
 aws configure sso
@@ -20,7 +24,17 @@ aws sts get-caller-identity --profile mi-sso
 
 El login abre el navegador y genera credenciales temporales. La aplicación invoca el mismo mecanismo.
 
-### B. Perfil compartido
+La pantalla inicial también puede crear esta configuración solicitando:
+
+- nombre de la sesión SSO;
+- SSO Start URL o Issuer URL;
+- región donde reside IAM Identity Center;
+- AWS Account ID y rol/permission set;
+- nombre del perfil y región predeterminada.
+
+El registration scope se fija en `sso:account:access`. Al guardar se modifica el archivo compartido `~/.aws/config`, después de una confirmación explícita.
+
+### C. Perfil compartido
 
 ```powershell
 aws configure --profile laboratorio
@@ -28,20 +42,49 @@ aws configure --profile laboratorio
 
 Evita access keys de larga duración cuando puedas usar SSO/roles.
 
-### C. Roles
+### D. Roles y otras cargas
 
-Un perfil puede asumir un rol configurado en `~/.aws/config`. AWS CLI resolverá la cadena y la aplicación heredará el resultado.
+La pantalla puede crear un perfil AssumeRole indicando perfil de origen, ARN del rol y región. La opción **Cadena automática AWS** omite `--profile`, lo que permite a AWS CLI resolver variables de entorno, `credential_process` y roles de carga EC2/ECS/EKS.
 
 ## 3. Ejecuta AWS Desktop Studio
 
-1. Elige un perfil.
-2. Elige región (por defecto la UI propone `sa-east-1`).
-3. Pulsa **Validar sesión**.
-4. Comprueba Account y ARN.
-5. Selecciona un servicio.
-6. Consulta recursos.
+Aplicación Electron:
 
-## 4. Si expira SSO
+```powershell
+pnpm start
+```
+
+Interfaz en navegador local:
+
+```powershell
+pnpm run start:web
+```
+
+Después abre `http://127.0.0.1:4173`. Este servidor solo acepta conexiones loopback y reutiliza la sesión de AWS CLI del mismo usuario de Windows.
+
+1. En la pantalla inicial, pulsa **Entrar con AWS Login** o elige un perfil/proveedor existente.
+2. Para una organización, configura IAM Identity Center o crea un perfil AssumeRole.
+3. Elige región (por defecto la UI propone `sa-east-1`).
+4. Pulsa **Iniciar sesión SSO** si la sesión expiró.
+5. Pulsa **Verificar y entrar**.
+6. Comprueba Account y ARN; el explorador solo se habilita después de esta validación.
+7. Pulsa **Inventario de la cuenta** para consultar todas las integraciones permitidas o selecciona un servicio concreto.
+
+**Abrir consola AWS** solamente abre la consola oficial. Para conectar esa identidad a la aplicación se debe usar **AWS Login**, que realiza el intercambio oficial mediante AWS CLI; la aplicación local nunca extrae cookies.
+
+AWS Login acepta la identidad que AWS autorice en el navegador —root, IAM o federada— sin duplicar formularios de acceso en la interfaz local. El usuario o email, contraseña, desafío de seguridad y MFA siempre se completan en las páginas oficiales de AWS; la aplicación no solicita ni conserva esos valores.
+
+AWS CLI abre esa autenticación en una ventana oficial separada. La pestaña localhost permanece abierta esperando el resultado. Cambiar de región después de validar la identidad no cierra la sesión: conserva Account y ARN, limpia solamente los resultados regionales y permite consultar nuevamente.
+
+Si el MFA habitual no está disponible, AWS puede mostrar **Trouble signing in?** y factores alternativos que verifican el correo y el teléfono asociados a la cuenta. Este es un mecanismo de recuperación administrado íntegramente por AWS, no por AWS Desktop Studio. Para uso frecuente, registra uno o más dispositivos MFA funcionales en vez de depender diariamente de la recuperación.
+
+El modo localhost permite consultas de identidad y recursos. Las acciones mutables sobre EC2 se mantienen deshabilitadas allí; utiliza Electron para disponer de confirmación nativa antes de cada cambio.
+
+## 4. Centro de tareas
+
+Después de validar la cuenta, abre **Mis tareas** para registrar pendientes locales, asociarlos a un servicio, asignar prioridad y fecha, y moverlos entre pendiente, en curso y completado. La lista se guarda solamente en el equipo y no se sincroniza con servicios AWS.
+
+## 5. Si expira SSO
 
 Pulsa **SSO Login** o ejecuta:
 

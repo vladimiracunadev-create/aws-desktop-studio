@@ -1,25 +1,33 @@
-# Roadmap
+# Roadmap de madurez
 
-## v0.2
-- Explorador de objetos S3.
-- Métricas CloudWatch por recurso.
-- Detalle de VPC/subredes/security groups.
-- Presupuestos y alarmas de costos.
-- Soporte AWS Organizations multi-account.
+Las versiones indicadas son objetivos de desarrollo, no compromisos de fecha ni certificaciones automáticas de producción. Un release solo marca una entrega del repositorio; cada capacidad debe cumplir criterios verificables propios.
 
-## v0.3
-- Lambda invoke con payload seguro.
-- ECS task/service explorer.
-- EKS + kubectl context helper.
-- RDS snapshot/backup workflows con confirmaciones.
+## P0 — acceso AWS confiable
 
-## v0.4
-- Integración Terraform, CloudFormation y CDK.
-- Generador de diagramas de arquitectura desde recursos inventariados.
-- LocalStack como laboratorio opcional.
+- Asistente único para credenciales de consola, SSO, perfil, AssumeRole y workload.
+- Pruebas end-to-end por modalidad, incluyendo cancelación, expiración y renovación.
+- Cuenta, ARN, proveedor, región y vencimiento visibles antes de consultar o modificar.
+- Regiones descubiertas dinámicamente.
+- Diagnóstico accionable sin pedir ni mostrar secretos.
 
-## v1.0
-- Inventario multi-región/multi-cuenta.
-- RBAC local por modo de uso.
-- Historial/auditoría local sin secretos.
-- FinOps, seguridad y resiliencia integrados.
+## P1 — exploración multi-cuenta y multi-región
+
+- Inventario paginado y agregación por cuentas, roles y regiones.
+- Resource Explorer y Resource Groups Tagging API como fuentes complementarias.
+- Exploradores detallados de S3, CloudWatch, VPC, ECS, EKS y costos.
+- Estados diferenciados: sin recursos, sin permiso, servicio no disponible y error transitorio.
+
+## P2 — operaciones y plataforma
+
+- Flujos reversibles con vista previa, mínimo privilegio y auditoría local.
+- Integración gradual con AWS SDK, Terraform, CloudFormation y CDK.
+- LocalStack como laboratorio explícitamente separado de AWS real.
+- Firma Authenticode, actualización segura, rollback, accesibilidad y pruebas de instalador.
+
+## Criterios para una futura v1.0
+
+- Matriz pública de modalidades y sistemas operativos probada end-to-end.
+- Inventario multi-región/multi-cuenta con paginación y límites documentados.
+- Renovación de sesiones y recuperación de errores sin reinicios ambiguos.
+- Pruebas de seguridad, interfaz e instalador además de pruebas unitarias.
+- Documentación que distinga con precisión capacidades soportadas, experimentales y educativas.

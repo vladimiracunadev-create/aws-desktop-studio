@@ -5,11 +5,18 @@ import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const required = [
   'src/main.js',
+  'src/local-server.js',
+  'src/aws-auth.js',
+  'src/sso-config.js',
   'src/preload.js',
   'src/renderer/index.html',
   'src/renderer/app.js',
+  'src/renderer/web-api.js',
   'src/renderer/styles.css',
   'docs/tutorials/ec2.md',
+  'docs/08-referencias-y-plan-de-madurez.md',
+  'docs/09-investigacion-implementacion-aws.md',
+  'skills/cloud-implementation-research-audit/SKILL.md',
   'site/index.html',
   'README.md',
   'SECURITY.md',

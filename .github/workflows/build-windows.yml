@@ -64,7 +64,14 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3.0.3
         with:
+          name: ${{ github.ref_name }} · Implementación en desarrollo
           generate_release_notes: true
+          append_body: true
+          body: |
+            > [!WARNING]
+            > Esta versión identifica un despliegue inicial de una implementación en desarrollo. Los artefactos Windows no certifican que el acceso AWS esté resuelto para todas las modalidades ni que la aplicación esté lista para producción.
+
+            Consulta `PROJECT_STATUS.md`, `ROADMAP.md` y `docs/08-referencias-y-plan-de-madurez.md` antes de usar los binarios.
           fail_on_unmatched_files: true
           files: |
             dist/*.exe

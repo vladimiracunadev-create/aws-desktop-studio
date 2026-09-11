@@ -3,7 +3,7 @@
 
   # AWS Desktop Studio
 
-  **Explora tu cuenta AWS desde Windows con tu sesión local, controles explícitos y aprendizaje integrado.**
+  **Implementación experimental para explorar integraciones AWS desde Windows y localhost.**
 
   [![CI](https://github.com/vladimiracunadev-create/aws-desktop-studio/actions/workflows/ci.yml/badge.svg)](https://github.com/vladimiracunadev-create/aws-desktop-studio/actions/workflows/ci.yml)
   [![CodeQL](https://github.com/vladimiracunadev-create/aws-desktop-studio/actions/workflows/codeql.yml/badge.svg)](https://github.com/vladimiracunadev-create/aws-desktop-studio/actions/workflows/codeql.yml)
@@ -16,19 +16,34 @@
 
 ---
 
-> **Estado verificable — v0.1.1 OPERATIVO.** El explorador consulta recursos reales con AWS CLI v2. Las únicas mutaciones implementadas son iniciar, detener y reiniciar instancias EC2 existentes; requieren activar manualmente el modo operativo y confirmar cada acción. El proyecto no crea infraestructura.
+> **IMPLEMENTACIÓN EN DESARROLLO — v0.1.1.** Existe una aplicación ejecutable, localhost y artefactos Windows iniciales, pero el flujo de acceso AWS todavía está en validación y mejora. Esta versión demuestra despliegue y consultas acotadas; no representa un producto terminado ni una solución universal de autenticación AWS.
+
+## Qué es y qué no es
+
+Este repositorio es un prototipo funcional y verificable para aprender, explorar integraciones y madurar una aplicación local de AWS. Algunas consultas llaman cuentas reales mediante AWS CLI y STS, pero su cobertura, experiencia de acceso, renovación de sesiones, paginación y soporte multi-cuenta/multi-región siguen incompletos.
+
+- **Sí es:** una base de desarrollo con Electron, localhost loopback, empaquetado Windows, controles de seguridad, pruebas unitarias e integraciones de lectura acotadas.
+- **No es:** una réplica de AWS Console, un gestor de identidad terminado, una garantía de acceso para cualquier modalidad ni una herramienta lista para producción.
+- **Los releases 0.x iniciales:** versionan el empaquetado y despliegue de la implementación. No certifican que el acceso AWS esté resuelto.
 
 ## Qué demuestra
 
 AWS Desktop Studio reúne administración, laboratorio y tutorial en una aplicación Electron local-first:
 
-- detecta perfiles de AWS CLI e IAM Identity Center/SSO sin copiar credenciales;
+- conecta identidades root, IAM o federadas mediante el proveedor oficial `aws login`, sin copiar credenciales;
+- detecta perfiles AWS CLI, IAM Identity Center/SSO, AssumeRole y la cadena estándar del entorno;
+- identifica el proveedor seleccionado sin leer ni mostrar Access Keys y presenta las conexiones en orden de prioridad;
+- bloquea el espacio de trabajo hasta validar la identidad efectiva con AWS STS;
 - valida la identidad activa con AWS STS;
-- consulta 16 servicios reales y presenta su respuesta de forma legible;
+- incluye comandos experimentales de lectura para 16 áreas AWS y presenta respuestas acotadas;
+- genera un inventario agregado por cuenta y región, mostrando también los servicios que IAM no autorizó;
 - incorpora 20 tutoriales y un catálogo de 28 servicios/capacidades;
 - separa lectura y mutación con controles visibles y confirmación;
+- incluye un centro de tareas local con prioridad, fecha, servicio y estado;
 - ejecuta AWS CLI con argumentos estructurados, `shell: false`, renderer aislado y permisos del navegador denegados;
 - publica instalador NSIS y versión portable mediante un release reproducible con SBOM y SHA-256.
+
+Estas capacidades demuestran piezas técnicas existentes, no madurez de producto. Consulta [Estado verificable](PROJECT_STATUS.md), [Roadmap](ROADMAP.md) y [Referencias y plan de madurez](docs/08-referencias-y-plan-de-madurez.md) antes de evaluar el alcance.
 
 ## Inicio rápido
 
@@ -37,7 +52,7 @@ AWS Desktop Studio reúne administración, laboratorio y tutorial en una aplicac
 - Windows 10/11 x64.
 - Node.js 22 LTS para desarrollo.
 - AWS CLI v2 disponible en `PATH`.
-- Un perfil AWS válido; se recomienda IAM Identity Center/SSO.
+- AWS CLI v2 con soporte para `aws login`, o un perfil/proveedor AWS válido.
 
 ```powershell
 aws configure sso
@@ -55,7 +70,21 @@ pnpm run verify
 pnpm start
 ```
 
-La aplicación selecciona `sa-east-1` inicialmente, intenta adoptar la región del perfil elegido y nunca almacena Access Keys ni tokens.
+### Ejecutar en localhost
+
+```powershell
+pnpm run start:web
+```
+
+Abre `http://127.0.0.1:4173`. El servidor escucha únicamente en loopback y reutiliza los perfiles de AWS CLI del usuario actual. Las consultas de identidad y recursos pasan por una API local con validación de origen y token anti-CSRF. Las mutaciones EC2 continúan reservadas a Electron, donde existe confirmación nativa.
+
+La aplicación selecciona `sa-east-1` inicialmente, intenta adoptar la región del perfil elegido y nunca almacena Access Keys ni tokens. La primera pantalla permite usar AWS Login, configurar SSO, elegir la cadena estándar del entorno, crear un perfil AssumeRole, validar la identidad y abrir la consola oficial. El explorador permanece bloqueado hasta completar la validación STS.
+
+**AWS Login** es la opción directa para una persona que ya puede autenticarse en la consola como root, usuario IAM o identidad federada. AWS CLI abre el sitio oficial, obtiene credenciales temporales y crea o actualiza el perfil indicado. La aplicación espera el resultado y valida inmediatamente la cuenta y el ARN efectivos.
+
+El asistente visual de IAM Identity Center incluye nombre de sesión, Start/Issuer URL, región SSO, Account ID, rol/permission set, nombre de perfil, región predeterminada y el scope fijo `sso:account:access`. El asistente AssumeRole crea una cadena segura desde un perfil de origen hacia un rol de otra cuenta. Usuario/email, contraseña, controles de seguridad y MFA se introducen exclusivamente en AWS.
+
+Las tareas personales se guardan localmente en el almacenamiento de la aplicación. No se sincronizan con AWS y nunca contienen credenciales salvo que el usuario las escriba expresamente, algo que se debe evitar.
 
 ### Construir Windows
 
@@ -64,6 +93,8 @@ pnpm run dist:win
 ```
 
 El pipeline de release genera dos ejecutables diferenciados —Setup y Portable—, un SBOM CycloneDX y `SHA256SUMS.txt`. Los binarios comunitarios no están firmados con un certificado comercial; Windows puede mostrar una advertencia SmartScreen.
+
+> Un artefacto instalable solo demuestra que el código fue empaquetado. No demuestra que todas las modalidades de acceso AWS funcionen ni que la aplicación esté lista para producción.
 
 ## Cobertura funcional
 
@@ -122,6 +153,9 @@ AWS IAM continúa siendo la autoridad final. La aplicación no amplía los permi
 | [Arquitectura interna](docs/07-arquitectura-interna.md) | procesos, IPC y amenazas |
 | [Mapa de servicios](docs/aws-service-map.md) | catálogo completo |
 | [Evidencia verificable](docs/VERIFICATION.md) | pruebas y fuentes de verdad |
+| [Referencias y plan de madurez](docs/08-referencias-y-plan-de-madurez.md) | comparación open source, brechas y prioridades |
+| [Investigación de implementación AWS](docs/09-investigacion-implementacion-aws.md) | proveedores, seguridad, inventario, historial y criterios E2E |
+| [Skill general de auditoría cloud](skills/cloud-implementation-research-audit/SKILL.md) | investigación reutilizable para AWS, Azure, Google Cloud y otros proveedores |
 
 ## Desarrollo y contribución
 
@@ -135,9 +169,9 @@ pnpm audit --audit-level=high
 
 Consulta [CONTRIBUTING.md](CONTRIBUTING.md) antes de abrir un cambio. Las operaciones mutables nuevas deben incorporar allowlist, validación, confirmación, pruebas y documentación del impacto/costo.
 
-## Alcance honesto
+## Alcance honesto y estado de madurez
 
-Este repositorio sí contiene una aplicación ejecutable y consultas AWS reales. No contiene un SDK propio, no reemplaza la consola de AWS, no administra credenciales, no aprovisiona infraestructura y no promete cobertura total del catálogo AWS. Las firmas comerciales y distribución en Microsoft Store están fuera del alcance de v0.1.1.
+Este repositorio contiene una aplicación ejecutable, un modo localhost y consultas AWS reales acotadas. Usa credenciales administradas por AWS CLI, pero no solicita secretos ni implementa un proveedor de identidad propio. No reemplaza la consola, no aprovisiona infraestructura, no promete cobertura total del catálogo AWS y permanece en desarrollo activo. Las firmas comerciales, distribución en Microsoft Store y una matriz completa de acceso están fuera del alcance de v0.1.1.
 
 ## Licencia y marcas
 

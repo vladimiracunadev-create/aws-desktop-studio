@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; connect-src 'none'; font-src 'self'; object-src 'none'; base-uri 'none'; frame-src 'none';" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'none'; frame-src 'none';" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AWS Desktop Studio</title>
   <link rel="stylesheet" href="styles.css" />
@@ -11,7 +11,7 @@
   <header>
     <div>
       <h1>AWS Desktop Studio</h1>
-      <p>Explora tu cuenta AWS desde Windows usando tu sesión local AWS CLI / IAM Identity Center.</p>
+      <p>Explora recursos reales de AWS usando AWS Login, IAM Identity Center, perfiles y roles.</p>
     </div>
     <div class="status-row">
       <span id="cliBadge" class="badge">AWS CLI…</span>
@@ -19,18 +19,95 @@
     </div>
   </header>
 
-  <section class="connection card">
-    <div class="field"><label>Perfil</label><select id="profile"></select></div>
-    <div class="field"><label>Región</label><select id="region"></select></div>
-    <button id="refreshProfiles">Actualizar perfiles</button>
-    <button id="validateIdentity" class="primary">Validar sesión</button>
-    <button id="ssoLogin">SSO Login</button>
-    <button id="terminal">Abrir PowerShell AWS</button>
-    <label class="mode"><input id="operationalMode" type="checkbox" /> Modo operativo</label>
+  <section id="connectionGate" class="connection card">
+    <div class="connection-intro">
+      <span class="eyebrow">Conexión segura</span>
+      <h2>Conecta tu cuenta AWS para comenzar</h2>
+      <p>Una sola conexión: AWS abre su acceso oficial, tú completas la autenticación y esta aplicación valida la cuenta real con STS.</p>
+      <ol>
+        <li>Pulsa <strong>Conectar con AWS</strong>.</li>
+        <li>Completa usuario/email, contraseña y MFA únicamente en AWS.</li>
+        <li>Regresa aquí: el inventario se habilita al validar Account y ARN.</li>
+      </ol>
+    </div>
+    <div class="connection-form">
+      <div class="field"><label>Región</label><select id="region"></select></div>
+      <div class="login-primary">
+        <div><span class="priority-badge">Prioridad 1</span><strong>Credenciales de consola</strong><small>AWS Login abrirá una ventana oficial separada. No reemplaza ni cierra localhost: esta pantalla queda esperando el resultado.</small></div>
+        <div class="field"><label for="awsLoginProfile">Nombre local de la conexión</label><input id="awsLoginProfile" required value="aws-login" /></div>
+        <button id="awsLogin" class="primary">Abrir AWS en otra ventana y vincular</button>
+        <div id="connectionProgress" class="connection-progress" aria-live="polite">
+          <span id="stepBrowser" class="connection-step">1 · Autenticación en AWS</span>
+          <span id="stepCredentials" class="connection-step">2 · Credencial temporal</span>
+          <span id="stepSts" class="connection-step">3 · Identidad STS</span>
+        </div>
+        <div class="aws-login-steps">
+          <strong>En la ventana oficial de AWS:</strong>
+          <ol>
+            <li>Escribe tu correo y pulsa <em>Next</em>.</li>
+            <li>Escribe tu contraseña solamente en AWS.</li>
+            <li>Completa el MFA. Si tu dispositivo no está disponible, AWS puede ofrecer <em>Trouble signing in?</em> y factores alternativos por correo y teléfono.</li>
+            <li>Al finalizar, vuelve a esta pestaña; validaremos la cuenta automáticamente.</li>
+          </ol>
+        </div>
+      </div>
+      <details class="auth-details">
+        <summary>Otras modalidades: SSO, perfiles, roles y workloads</summary>
+        <div class="advanced-profile">
+          <div class="field"><label>Proveedor / perfil AWS</label><select id="profile"></select></div>
+          <button id="refreshProfiles" type="button">Actualizar perfiles</button>
+          <button id="ssoLogin" type="button">Renovar SSO seleccionado</button>
+          <button id="validateIdentity" type="button" class="primary">Conectar perfil elegido</button>
+        </div>
+        <p id="providerType" class="provider-type">Proveedor detectado: pendiente</p>
+        <div class="mode-list">
+          <div><strong>IAM Identity Center</strong><small>Usuarios de organizaciones y permission sets.</small></div>
+          <div><strong>Perfil AWS CLI</strong><small>Configuración compartida existente; la aplicación no muestra sus secretos.</small></div>
+          <div><strong>AssumeRole</strong><small>Roles temporales en esta u otras cuentas.</small></div>
+          <div><strong>Entorno / workload</strong><small>Variables, web identity/OIDC, credential_process y roles de EC2, ECS o EKS.</small></div>
+        </div>
+        <p class="connection-help">También puedes usar credenciales del entorno, un workload role o un perfil ya configurado y pulsar “Usar conexión existente”.</p>
+      </details>
+      <details class="auth-details">
+        <summary>Crear perfil con IAM Identity Center (SSO)</summary>
+        <form id="ssoProfileForm" class="auth-form">
+          <div class="field"><label for="ssoSessionName">Nombre de sesión SSO</label><input id="ssoSessionName" required value="aws-studio" placeholder="mi-sso" /></div>
+          <div class="field wide"><label for="ssoStartUrl">SSO Start URL o Issuer URL</label><input id="ssoStartUrl" required type="url" placeholder="https://mi-portal.awsapps.com/start" /></div>
+          <div class="field"><label for="ssoRegion">Región de IAM Identity Center</label><input id="ssoRegion" required value="us-east-1" placeholder="us-east-1" /></div>
+          <div class="field"><label for="ssoAccountId">AWS Account ID</label><input id="ssoAccountId" required inputmode="numeric" maxlength="12" placeholder="123456789012" /></div>
+          <div class="field"><label for="ssoRoleName">Rol / Permission set</label><input id="ssoRoleName" required placeholder="ReadOnlyAccess" /></div>
+          <div class="field"><label for="ssoProfileName">Nombre del perfil local</label><input id="ssoProfileName" required placeholder="produccion-readonly" /></div>
+          <div class="field"><label for="ssoDefaultRegion">Región predeterminada</label><input id="ssoDefaultRegion" required value="us-east-2" placeholder="us-east-2" /></div>
+          <div class="field"><label>Registration scope</label><input value="sso:account:access" disabled /></div>
+          <button type="submit" class="primary wide">Guardar perfil SSO</button>
+        </form>
+        <p class="connection-help">Guardar modifica <code>~/.aws/config</code>. Después, usa “Iniciar sesión SSO”; AWS abrirá su dominio oficial para contraseña y MFA.</p>
+      </details>
+      <details class="auth-details">
+        <summary>Acceso cruzado: crear perfil AssumeRole</summary>
+        <form id="assumeRoleForm" class="auth-form">
+          <div class="field"><label for="roleProfileName">Nuevo perfil</label><input id="roleProfileName" required placeholder="produccion-readonly" /></div>
+          <div class="field"><label for="roleSourceProfile">Perfil de origen</label><input id="roleSourceProfile" required placeholder="aws-login" /></div>
+          <div class="field wide"><label for="roleArn">ARN del rol IAM</label><input id="roleArn" required placeholder="arn:aws:iam::123456789012:role/ReadOnlyAccess" /></div>
+          <div class="field"><label for="roleSessionName">Nombre de sesión</label><input id="roleSessionName" value="aws-desktop-studio" required /></div>
+          <button type="submit" class="primary">Guardar AssumeRole</button>
+        </form>
+        <p class="connection-help">El perfil de destino usa credenciales temporales del perfil de origen y los permisos que autorice el rol.</p>
+      </details>
+      <p class="security-note">No ingreses correo, contraseña, MFA ni Access Keys en esta interfaz. Los factores alternativos son un mecanismo de recuperación de AWS; para uso habitual conviene registrar un MFA funcional y usar una identidad de mínimo privilegio.</p>
+    </div>
   </section>
 
-  <main>
+  <main id="appWorkspace" class="app-locked">
     <aside class="card">
+      <div class="session-summary">
+        <span class="eyebrow">Sesión activa</span>
+        <strong id="accountSummary">Cuenta validada</strong>
+        <button id="changeConnection" class="link-button">Cambiar conexión</button>
+        <button id="openConsole">Abrir consola de esta cuenta</button>
+        <button id="terminal">Abrir PowerShell AWS</button>
+        <label class="mode"><input id="operationalMode" type="checkbox" /> Modo operativo</label>
+      </div>
       <input id="search" placeholder="Buscar servicio…" />
       <div id="services"></div>
     </aside>
@@ -43,6 +120,7 @@
           <p id="serviceSummary">Selecciona un servicio para revisar recursos reales y abrir su tutorial.</p>
         </div>
         <div class="actions">
+          <button id="loadInventory" disabled>Inventario de la cuenta</button>
           <button id="loadResources" class="primary" disabled>Consultar recursos</button>
           <button id="loadTutorial" disabled>Ver tutorial</button>
         </div>
@@ -52,17 +130,40 @@
 
       <div class="tabs">
         <button class="tab active" data-tab="resources">Recursos</button>
+        <button class="tab" data-tab="tasks">Mis tareas <span id="taskCount" class="count">0</span></button>
         <button class="tab" data-tab="tutorial">Tutorial</button>
         <button class="tab" data-tab="raw">JSON</button>
       </div>
 
       <section id="resourcesPanel" class="card panel"></section>
+      <section id="tasksPanel" class="card panel hidden">
+        <div class="task-header">
+          <span class="eyebrow">Organización local</span>
+          <h2>Centro de tareas</h2>
+          <p>Registra trabajo pendiente relacionado con tu cuenta. Estas tareas se guardan solo en este equipo.</p>
+        </div>
+        <form id="taskForm" class="task-form">
+          <div class="field task-title"><label for="taskTitle">Tarea</label><input id="taskTitle" maxlength="120" required placeholder="Ej.: revisar instancias detenidas" /></div>
+          <div class="field"><label for="taskService">Servicio</label><select id="taskService"></select></div>
+          <div class="field"><label for="taskPriority">Prioridad</label><select id="taskPriority"><option value="normal">Normal</option><option value="high">Alta</option><option value="low">Baja</option></select></div>
+          <div class="field"><label for="taskDue">Fecha</label><input id="taskDue" type="date" /></div>
+          <button type="submit" class="primary">Añadir tarea</button>
+        </form>
+        <div class="task-filters">
+          <button class="task-filter active" data-task-filter="all">Todas</button>
+          <button class="task-filter" data-task-filter="pending">Pendientes</button>
+          <button class="task-filter" data-task-filter="in_progress">En curso</button>
+          <button class="task-filter" data-task-filter="done">Completadas</button>
+        </div>
+        <div id="taskList" class="task-list"></div>
+      </section>
       <section id="tutorialPanel" class="card panel hidden"><pre id="tutorialText"></pre></section>
       <section id="rawPanel" class="card panel hidden"><pre id="rawText">{}</pre></section>
     </section>
   </main>
 
   <footer>AWS Desktop Studio · modo lectura por defecto · acciones mutables controladas.</footer>
+  <script src="web-api.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

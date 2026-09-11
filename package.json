@@ -1,7 +1,7 @@
 {
   "name": "aws-desktop-studio",
   "version": "0.1.1",
-  "description": "Aplicación Windows para explorar y operar AWS reutilizando perfiles y sesiones locales de AWS CLI/SSO.",
+  "description": "Implementación en desarrollo para explorar integraciones AWS desde Windows y localhost mediante AWS CLI.",
   "main": "src/main.js",
   "author": "Vladimir Acuña",
   "license": "MIT",
@@ -12,6 +12,7 @@
   },
   "scripts": {
     "start": "electron .",
+    "start:web": "node src/local-server.js",
     "test": "node --test test/*.test.js",
     "test:coverage": "node --test --experimental-test-coverage test/*.test.js",
     "assets:generate": "node scripts/generate-icon.mjs",

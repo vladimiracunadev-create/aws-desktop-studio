@@ -44,6 +44,8 @@ const LIST_COMMANDS = {
   vpc: ['ec2', 'describe-vpcs']
 };
 
+const INVENTORY_SERVICES = Object.freeze(Object.keys(LIST_COMMANDS));
+
 function buildListCommand(service, profile, region) {
   if (service === 'cost') {
     const { start, end } = monthWindow();
@@ -84,5 +86,6 @@ module.exports = {
   monthWindow,
   buildListCommand,
   buildIdentityCommand,
-  buildEc2Action
+  buildEc2Action,
+  INVENTORY_SERVICES
 };

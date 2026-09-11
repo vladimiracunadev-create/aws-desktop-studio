@@ -2,6 +2,8 @@
 
 Este documento separa lo automatizado de lo que requiere un entorno AWS real.
 
+Pasar estos gates demuestra integridad del código, pruebas unitarias y capacidad de empaquetado. No demuestra que el producto esté terminado ni que todas las modalidades de acceso AWS funcionen. Los workflows públicos no reciben credenciales de cuentas reales y, por diseño, no prueban root, IAM, federación, SSO, AssumeRole o workloads de extremo a extremo.
+
 ## Gates locales y CI
 
 | Gate | Comando / workflow | Qué prueba |
@@ -14,6 +16,8 @@ Este documento separa lo automatizado de lo que requiere un entorno AWS real.
 | SAST | `codeql.yml` | análisis JavaScript/TypeScript semanal y por cambios |
 | Release | `build-windows.yml` | empaquetado, SBOM, SHA-256 y publicación por tag |
 | Landing | `pages.yml` | despliegue reproducible del contenido de `site/` |
+
+Un workflow verde de release significa que Setup, Portable, SBOM y hashes pudieron generarse. No es una certificación de autenticación AWS ni de preparación para producción.
 
 ## Prueba manual con AWS
 

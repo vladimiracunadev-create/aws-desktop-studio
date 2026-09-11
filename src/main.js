@@ -4,8 +4,11 @@ const { app, BrowserWindow, ipcMain, dialog, shell, session } = require('electro
 const { spawn, spawnSync } = require('child_process');
 const path = require('path');
 const fs = require('fs');
+const os = require('os');
 const { services } = require('./catalog');
-const { buildListCommand, buildIdentityCommand, buildEc2Action, assertSafeToken } = require('./aws-command-builder');
+const { buildListCommand, buildIdentityCommand, buildEc2Action, assertSafeToken, INVENTORY_SERVICES } = require('./aws-command-builder');
+const { buildSsoConfigCommands } = require('./sso-config');
+const { buildAwsLoginCommand, buildAssumeRoleConfigCommands, classifyConnection } = require('./aws-auth');
 
 let mainWindow;
 
@@ -74,6 +77,13 @@ function toJson(text) {
   try { return JSON.parse(text); } catch { return { raw: text }; }
 }
 
+function hasProfileSetting(profile, key) {
+  const args = ['configure', 'get', key];
+  if (profile) args.push('--profile', assertSafeToken(profile, 'Perfil'));
+  const result = spawnSync('aws', args, { encoding:'utf8', windowsHide:true, shell:false });
+  return result.status === 0 && Boolean((result.stdout || '').trim());
+}
+
 ipcMain.handle('system:diagnostics', async () => {
   let version = null;
   if (awsExists()) {
@@ -100,6 +110,17 @@ ipcMain.handle('aws:profileRegion', async (_event, { profile }) => {
   return out.trim();
 });
 
+ipcMain.handle('aws:connectionInfo', async (_event, { profile }) => {
+  const settings = {
+    loginSession:hasProfileSetting(profile, 'login_session'),
+    ssoSession:hasProfileSetting(profile, 'sso_session'),
+    ssoStartUrl:hasProfileSetting(profile, 'sso_start_url'),
+    roleArn:hasProfileSetting(profile, 'role_arn'),
+    credentialProcess:hasProfileSetting(profile, 'credential_process')
+  };
+  return { profile:profile || null, type:classifyConnection(settings) };
+});
+
 ipcMain.handle('aws:identity', async (_event, { profile, region }) => {
   const out = await runAws(buildIdentityCommand(profile, region));
   return toJson(out);
@@ -108,6 +129,24 @@ ipcMain.handle('aws:identity', async (_event, { profile, region }) => {
 ipcMain.handle('aws:listResources', async (_event, { service, profile, region }) => {
   const out = await runAws(buildListCommand(service, profile, region), service === 'cost' ? 60000 : 45000);
   return toJson(out);
+});
+
+ipcMain.handle('aws:inventory', async (_event, { profile, region }) => {
+  const results = await Promise.all(INVENTORY_SERVICES.map(async (service) => {
+    try {
+      const out = await runAws(buildListCommand(service, profile, region), 60000);
+      return { service, ok:true, data:toJson(out) };
+    } catch (error) {
+      return { service, ok:false, error:error.message };
+    }
+  }));
+  return { generatedAt:new Date().toISOString(), accountRegion:region, results };
+});
+
+ipcMain.handle('aws:login', async (_event, payload) => {
+  if (!awsExists()) throw new Error('AWS CLI v2 no está instalado o no está disponible en PATH.');
+  const out = await runAws(buildAwsLoginCommand(payload), 300000);
+  return { ok:true, profile:payload.profile.trim(), message:out || 'AWS Login completado.' };
 });
 
 ipcMain.handle('aws:ec2Action', async (_event, { action, instanceId, profile, region, operationalMode }) => {
@@ -131,6 +170,20 @@ ipcMain.handle('aws:ssoLogin', async (_event, { profile }) => {
   const safeProfile = assertSafeToken(profile, 'Perfil');
   const out = await runAws(['sso', 'login', '--profile', safeProfile], 180000);
   return { ok: true, message: out || 'Inicio de sesión SSO completado.' };
+});
+
+ipcMain.handle('aws:saveSsoProfile', async (_event, payload) => {
+  if (!awsExists()) throw new Error('AWS CLI v2 no está instalado o no está disponible en PATH.');
+  const commands = buildSsoConfigCommands(payload);
+  for (const args of commands) await runAws(args);
+  return { ok:true, profile:payload.profileName.trim() };
+});
+
+ipcMain.handle('aws:saveAssumeRoleProfile', async (_event, payload) => {
+  if (!awsExists()) throw new Error('AWS CLI v2 no está instalado o no está disponible en PATH.');
+  const commands = buildAssumeRoleConfigCommands(payload);
+  for (const args of commands) await runAws(args);
+  return { ok:true, profile:payload.profileName.trim() };
 });
 
 ipcMain.handle('aws:openProfileTerminal', async (_event, { profile, region }) => {
