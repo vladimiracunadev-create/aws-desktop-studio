@@ -181,10 +181,10 @@ pnpm install --frozen-lockfile
 pnpm run check
 pnpm test
 pnpm run test:coverage
-pnpm audit --audit-level=high
+pnpm audit --prod --audit-level=high
 ```
 
-Consulta [CONTRIBUTING.md](CONTRIBUTING.md) antes de abrir un cambio. Las operaciones mutables nuevas deben incorporar allowlist, validación, confirmación, pruebas y documentación del impacto/costo.
+CI bloquea vulnerabilidades altas en dependencias de runtime y publica por separado los avisos de herramientas de build mientras existan vulnerabilidades transitivas sin parche. Consulta [CONTRIBUTING.md](CONTRIBUTING.md) antes de abrir un cambio. Las operaciones mutables nuevas deben incorporar allowlist, validación, confirmación, pruebas y documentación del impacto/costo.
 
 ## 🧪 Alcance honesto y estado de madurez
 

@@ -30,7 +30,7 @@ flowchart LR
 ## ✅ Checklist
 
 1. Verificar árbol limpio, versión y changelog.
-2. Ejecutar `pnpm install --frozen-lockfile`, `pnpm run verify` y `pnpm audit --audit-level=high`.
+2. Ejecutar `pnpm install --frozen-lockfile`, `pnpm run verify` y `pnpm audit --prod --audit-level=high`; revisar además el reporte no bloqueante de herramientas de build en CI.
 3. Construir localmente con `pnpm run dist:win` cuando se requiera smoke test visual.
 4. Crear y subir el tag anotado `vX.Y.Z`.
 5. Confirmar que GitHub Actions publique Setup, Portable, SBOM CycloneDX y `SHA256SUMS.txt`.

@@ -5,7 +5,7 @@ Describe el problema y la solución.
 ## ✅ Evidencia
 
 - [ ] `pnpm run verify`
-- [ ] `pnpm audit --audit-level=high`
+- [ ] `pnpm audit --prod --audit-level=high`
 - [ ] Capturas adjuntas si cambia la interfaz
 - [ ] Documentación actualizada si cambia el comportamiento
 - [ ] Diagramas, tablas, badges y cifras conservan fuentes verificables

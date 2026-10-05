@@ -29,7 +29,8 @@ flowchart LR
 | Estructura | `pnpm run check` | archivos esenciales y 20 tutoriales presentes |
 | Unidad | `pnpm test` | construcción segura de argumentos, allowlists y fechas UTC |
 | Cobertura | `pnpm run test:coverage` | cobertura nativa de Node sin servicio externo |
-| Dependencias | `pnpm audit --audit-level=high` | vulnerabilidades conocidas del lockfile |
+| Dependencias de runtime | `pnpm audit --prod --audit-level=high` | vulnerabilidades altas en dependencias distribuidas; gate bloqueante |
+| Herramientas de build | `pnpm audit --dev --audit-level=high` | avisos transitivos del empaquetador; reporte visible no bloqueante |
 | Plataformas | `ci.yml` | validación en Windows y Ubuntu con Node 22 |
 | SAST | `codeql.yml` | análisis JavaScript/TypeScript semanal y por cambios |
 | Release | `build-windows.yml` | empaquetado, SBOM, SHA-256 y publicación por tag |

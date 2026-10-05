@@ -33,7 +33,11 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm run verify
-      - run: pnpm audit --audit-level=high
+      - name: Audit runtime dependencies
+        run: pnpm audit --prod --audit-level=high
+      - name: Report build-tool advisories
+        continue-on-error: true
+        run: pnpm audit --dev --audit-level=high
 
   dependency-review:
     name: Dependency review

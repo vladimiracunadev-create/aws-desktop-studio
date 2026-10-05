@@ -9,10 +9,10 @@ Gracias por mejorar AWS Desktop Studio. Busca primero un issue existente y mant�
 ```powershell
 pnpm install --frozen-lockfile
 pnpm run verify
-pnpm audit --audit-level=high
+pnpm audit --prod --audit-level=high
 ```
 
-Node.js 22 LTS es la referencia de desarrollo y CI. La aplicación se distribuye para Windows, aunque las pruebas puras también corren en Ubuntu.
+Node.js 22 LTS es la referencia de desarrollo y CI. La auditoría de runtime es bloqueante; CI informa por separado los avisos transitivos de herramientas de build. La aplicación se distribuye para Windows, aunque las pruebas puras también corren en Ubuntu.
 
 ## ☁️ Reglas para integraciones AWS
 
