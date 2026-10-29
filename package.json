@@ -22,8 +22,8 @@
     "pack:win": "electron-builder --win --dir"
   },
   "devDependencies": {
-    "electron": "44.2.0",
-    "electron-builder": "26.15.3"
+    "electron": "45.0.0",
+    "electron-builder": "26.18.0"
   },
   "build": {
     "appId": "cl.vladimiracuna.awsdesktopstudio",
