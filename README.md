@@ -13,7 +13,7 @@
   [![Version](https://img.shields.io/badge/version-0.1.1-8957e5.svg)](CHANGELOG.md)
   [![Tests](https://img.shields.io/badge/tests-15%20passing-2da44e.svg)](docs/VERIFICATION.md)
   [![Maturity](https://img.shields.io/badge/madurez-en%20desarrollo-f59e0b.svg)](PROJECT_STATUS.md)
-  [![Electron](https://img.shields.io/badge/Electron-44.2.0-47848f?logo=electron&logoColor=white)](package.json)
+  [![Electron](https://img.shields.io/badge/Electron-45.0.0-47848f?logo=electron&logoColor=white)](package.json)
 
   [**🌐 Sitio**](https://vladimiracunadev-create.github.io/aws-desktop-studio/) · [**🚀 Inicio rápido**](#-inicio-rápido) · [**🧭 Arquitectura**](docs/07-arquitectura-interna.md) · [**📚 Documentación**](#-documentación) · [**🔒 Seguridad**](SECURITY.md) · [**🗺️ Roadmap**](ROADMAP.md)
 </div>
@@ -181,10 +181,10 @@ pnpm install --frozen-lockfile
 pnpm run check
 pnpm test
 pnpm run test:coverage
-pnpm audit --prod --audit-level=high
+pnpm audit --audit-level=high
 ```
 
-CI bloquea vulnerabilidades altas en dependencias de runtime y publica por separado los avisos de herramientas de build mientras existan vulnerabilidades transitivas sin parche. Consulta [CONTRIBUTING.md](CONTRIBUTING.md) antes de abrir un cambio. Las operaciones mutables nuevas deben incorporar allowlist, validación, confirmación, pruebas y documentación del impacto/costo.
+CI bloquea vulnerabilidades altas en todo el árbol de dependencias, incluidas las herramientas de build. Consulta [CONTRIBUTING.md](CONTRIBUTING.md) antes de abrir un cambio. Las operaciones mutables nuevas deben incorporar allowlist, validación, confirmación, pruebas y documentación del impacto/costo.
 
 ## 🧪 Alcance honesto y estado de madurez
 
